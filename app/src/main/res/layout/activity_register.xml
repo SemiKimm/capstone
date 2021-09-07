@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="100dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="아이디"
+        android:textColorHint="#696969"/>
+
+    <Button
+        android:id="@+id/idDuplicationCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@id/id"
+        android:layout_marginLeft="5dp"
+        android:text="중복체크"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id"
+        android:layout_marginLeft="100dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="비밀번호"
+        android:textColorHint="#696969"/>
+
+    <EditText
+        android:id="@+id/passwordCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginLeft="100dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="비밀번호 확인"
+        android:textColorHint="#696969" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordCheck"
+        android:layout_marginLeft="100dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:hint="이름"
+        android:textColorHint="#696969"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="100dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:hint="전화번호"
+        android:textColorHint="#696969"/>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/phone"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:text="회원가입"/>
+
+</RelativeLayout>

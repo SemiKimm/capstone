@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchLostActivity">
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="143dp"
+        android:layout_height="62dp"
+        android:text="습득물"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="143dp"
+        android:layout_height="62dp"
+        android:text="분실물"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="143dp"
+        android:layout_height="62dp"
+        android:text="검색"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <!--카테고리-->
+    <TextView
+        android:id="@+id/text_cate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="카테고리"
+        android:textSize="20sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/button" />
+
+    <Spinner
+        android:id="@+id/spinner_category"
+        android:layout_width="120dp"
+        android:layout_height="20sp"
+        android:layout_marginTop="130dp"
+        android:layout_toRightOf="@id/text_region"
+        android:textSize="20sp" />
+
+
+    <!-- 색상-->
+    <TextView
+        android:id="@+id/text_color"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="색상"
+        android:gravity="start"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/text_cate" />
+
+    <Spinner
+        android:id="@+id/spinner_color"
+        android:layout_width="120dp"
+        android:layout_height="20sp"
+        android:layout_marginTop="155dp"
+        android:layout_toRightOf="@id/text_region"
+        android:textSize="20sp" />
+
+
+    <!--분실지역-->
+    <TextView
+        android:id="@+id/text_region"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="분실 지역"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/text_color" />
+
+    <Spinner
+        android:id="@+id/spinner_regionInfo1"
+        android:layout_width="120dp"
+        android:layout_height="20sp"
+        android:layout_marginTop="178dp"
+        android:layout_toRightOf="@id/text_region"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner_regionInfo2"
+        android:layout_width="120dp"
+        android:layout_height="20sp"
+        android:layout_marginTop="178dp"
+        android:layout_toRightOf="@id/spinner_regionInfo1"
+        android:textSize="20sp" />
+
+    <!--분실 장소-->
+    <TextView
+        android:id="@+id/text_spot"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="분실 장소"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/text_region" />
+
+    <EditText
+        android:id="@+id/edit_spotInfo"
+        android:layout_width="249dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="126dp"
+        android:layout_marginTop="192dp"
+        android:layout_toRightOf="@id/text_spot"
+        android:hint="분실 장소를 입력하세요."
+        android:textColorHint="#696969"
+        android:maxLength="12"
+        android:maxLines="1"/>
+
+    <!--분실일시-->
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="분실 일시"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/text_spot" />
+
+    <TextView
+        android:id="@+id/text_dateInfo"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_toRightOf="@id/text_date"
+        android:text="날짜 정보"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/datePick"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="221dp"
+        android:layout_toRightOf="@id/text_dateInfo"
+        android:onClick="showDatePicker"
+        android:text="Date" />
+
+</RelativeLayout>
