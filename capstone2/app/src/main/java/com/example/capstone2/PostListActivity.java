@@ -2,11 +2,13 @@ package com.example.capstone2;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -33,6 +35,9 @@ public class PostListActivity extends AppCompatActivity {
     private static final String TAG_PostDate ="PostDateData";
     private static final String TAG_PostColor ="PostColorData";
     private static final String TAG_PostMoreInfo ="PostMoreInfoData";
+    private static final String TAG_PostImg ="PostImgData";
+
+    private ImageView imgview;
 
     private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
@@ -161,6 +166,7 @@ public class PostListActivity extends AppCompatActivity {
                 String PostDateData = item.getString(TAG_PostDate );
                 String PostColorData = item.getString(TAG_PostColor );
                 String PostMoreInfoData = item.getString(TAG_PostMoreInfo );
+                String PostImgData = item.getString(TAG_PostImg );
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
@@ -169,19 +175,17 @@ public class PostListActivity extends AppCompatActivity {
                 hashMap.put(TAG_PostDate, PostDateData);
                 hashMap.put(TAG_PostColor, PostColorData);
                 hashMap.put(TAG_PostMoreInfo, PostMoreInfoData);
-
+                hashMap.put(TAG_PostImg, PostImgData);
                 mArrayList.add(hashMap);
             }
-
             ListAdapter adapter = new SimpleAdapter(
                     PostListActivity.this, mArrayList, R.layout.post_list_item,
-                    new String[]{TAG_PostTitle ,TAG_PostPlace , TAG_PostDate, TAG_PostColor,  TAG_PostMoreInfo },
-                    new int[]{R.id.textView_list_title, R.id.textView_list_place, R.id.textView_list_date, R.id.textView_list_color, R.id.textView_list_more_info}
+                    new String[]{TAG_PostTitle ,TAG_PostPlace , TAG_PostDate, TAG_PostColor,  TAG_PostMoreInfo, TAG_PostImg},
+                    new int[]{R.id.textView_list_title, R.id.textView_list_place, R.id.textView_list_date, R.id.textView_list_color, R.id.textView_list_more_info, R.id.textView_list_img}
             );
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
-
     }
 }

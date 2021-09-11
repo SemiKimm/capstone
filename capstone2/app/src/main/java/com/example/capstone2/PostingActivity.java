@@ -1,6 +1,8 @@
 package com.example.capstone2;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +34,16 @@ public class PostingActivity extends AppCompatActivity {
     private EditText postingTitle, placeData, moreInfo;
     private TextView date, color;
     private AlertDialog inputErrorDialog;
+    private Button imgButton;
+    private ImageView img;
+    private Uri urii;
+    //사진 요청 코드
+    private static final int REQUEST_CODE=0;
+
 //    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
     String[] colorItems = {"검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
+    
+    //날짜 선택 구현
     DatePickerDialog.OnDateSetListener dateSetListener=
         new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -49,6 +61,20 @@ public class PostingActivity extends AppCompatActivity {
 
         Button homeButton=findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(view -> finish());
+
+        //img입력 처리
+        img=findViewById(R.id.imgData);
+        imgButton= findViewById(R.id.imgInputBtn);
+        //갤러리에 요청코드 보내기
+        imgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent,REQUEST_CODE);
+            }
+        });
 
         //colorSpinner 처리 (색상선택처리)
         Spinner colorSpin = (Spinner)findViewById(R.id.colorSpinner);
@@ -88,6 +114,8 @@ public class PostingActivity extends AppCompatActivity {
             String PostDateData=date.getText().toString();
             String PostColorData=color.getText().toString();
             String PostMoreInfoData=moreInfo.getText().toString();
+            String PostImgData=urii.toString();
+            Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
             if (PostTitleData.equals("") || PostPlaceData.equals("")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PostingActivity.this);
@@ -118,11 +146,28 @@ public class PostingActivity extends AppCompatActivity {
             };
             //서버로 Volley 이용해서 요청
             PostingRequest postingRequest = new PostingRequest(  PostTitleData,  PostPlaceData
-                    ,  PostDateData,  PostMoreInfoData, PostColorData, responseListener);
+                    ,  PostDateData,  PostMoreInfoData, PostColorData, PostImgData, responseListener);
             RequestQueue queue = Volley.newRequestQueue( PostingActivity.this );
             queue.add( postingRequest );
         });
     }
 
-
+    //갤러리에서 이미지 넣기
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                try{
+                    Uri uri=data.getData();
+                    urii=uri;
+                    //다이얼로그 이미지 사진에 넣기
+                    Glide.with(getApplicationContext()).load(uri).into(img);
+                }catch(Exception e){
+                    
+                }
+            }else if(resultCode == RESULT_CANCELED){
+                //취소시 호출할 행동
+            }
+        }
+    }
 }
