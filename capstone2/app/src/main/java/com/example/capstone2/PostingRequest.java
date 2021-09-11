@@ -12,7 +12,7 @@ public class PostingRequest extends StringRequest{
     final static private String URL = "http://jamong.ivyro.net/Posting.php";
     private Map<String, String> map;
     public PostingRequest(String PostTitleData, String PostPlaceData
-            , String PostDateData, String PostMoreInfoData,
+            , String PostDateData, String PostMoreInfoData, String PostColorData,
                           Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
@@ -20,6 +20,7 @@ public class PostingRequest extends StringRequest{
         map.put("PostTitleData", PostTitleData);
         map.put("PostPlaceData", PostPlaceData);
         map.put("PostDateData", PostDateData);
+        map.put("PostColorData", PostColorData);
         map.put("PostMoreInfoData", PostMoreInfoData);
     }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="colorSpinnerArray">
+        <item> 검정색 </item>
+        <item> 흰색 </item>
+        <item> 빨강색 </item>
+        <item> 연두색 </item>
+        <item> 파랑색 </item>
+        <item> 노랑색 </item>
+        <item> 핑크색 </item>
+        <item> 보라색 </item>
+        <item> 회색 </item>
+    </string-array>
+</resources>

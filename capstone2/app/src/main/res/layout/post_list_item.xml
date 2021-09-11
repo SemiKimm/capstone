@@ -32,7 +32,7 @@
         android:padding="5dp" />
 
     <TextView
-        android:id="@+id/textView_list_more_info"
+        android:id="@+id/textView_list_color"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
@@ -40,7 +40,7 @@
         android:padding="5dp" />
 
     <TextView
-        android:id="@+id/textView_list_color"
+        android:id="@+id/textView_list_more_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"

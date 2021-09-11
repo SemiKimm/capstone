@@ -31,6 +31,7 @@ public class PostListActivity extends AppCompatActivity {
     private static final String TAG_PostTitle = "PostTitleData";
     private static final String TAG_PostPlace = "PostPlaceData";
     private static final String TAG_PostDate ="PostDateData";
+    private static final String TAG_PostColor ="PostColorData";
     private static final String TAG_PostMoreInfo ="PostMoreInfoData";
 
     private TextView mTextViewResult;
@@ -158,6 +159,7 @@ public class PostListActivity extends AppCompatActivity {
                 String PostTitleData = item.getString(TAG_PostTitle );
                 String PostPlaceData = item.getString(TAG_PostPlace );
                 String PostDateData = item.getString(TAG_PostDate );
+                String PostColorData = item.getString(TAG_PostColor );
                 String PostMoreInfoData = item.getString(TAG_PostMoreInfo );
 
                 HashMap<String,String> hashMap = new HashMap<>();
@@ -165,6 +167,7 @@ public class PostListActivity extends AppCompatActivity {
                 hashMap.put(TAG_PostTitle, PostTitleData);
                 hashMap.put(TAG_PostPlace, PostPlaceData);
                 hashMap.put(TAG_PostDate, PostDateData);
+                hashMap.put(TAG_PostColor, PostColorData);
                 hashMap.put(TAG_PostMoreInfo, PostMoreInfoData);
 
                 mArrayList.add(hashMap);
@@ -172,8 +175,8 @@ public class PostListActivity extends AppCompatActivity {
 
             ListAdapter adapter = new SimpleAdapter(
                     PostListActivity.this, mArrayList, R.layout.post_list_item,
-                    new String[]{TAG_PostTitle ,TAG_PostPlace , TAG_PostDate,  TAG_PostMoreInfo },
-                    new int[]{R.id.textView_list_title, R.id.textView_list_place, R.id.textView_list_date, R.id.textView_list_more_info}
+                    new String[]{TAG_PostTitle ,TAG_PostPlace , TAG_PostDate, TAG_PostColor,  TAG_PostMoreInfo },
+                    new int[]{R.id.textView_list_title, R.id.textView_list_place, R.id.textView_list_date, R.id.textView_list_color, R.id.textView_list_more_info}
             );
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
