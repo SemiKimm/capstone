@@ -25,20 +25,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PostListActivity extends AppCompatActivity {
+public class GetPostListActivity extends AppCompatActivity {
     private static String TAG = "getJsonList";
 
-    private static final String TAG_JSON="webnautes";
-    private static final String TAG_PostTitle = "PostTitleData";
-    private static final String TAG_PostPlace = "PostPlaceData";
-    private static final String TAG_PostDate ="PostDateData";
-    private static final String TAG_PostColor ="PostColorData";
-    private static final String TAG_PostMoreInfo ="PostMoreInfoData";
-    private static final String TAG_PostImg ="PostImgData";
+    private static final String TAG_JSON="getpostdata";
+    private static final String TAG_GetPostTitle = "GetPostTitleData";
+    private static final String TAG_GetPostPlace = "GetPostPlaceData";
+    private static final String TAG_GetPostDate ="GetPostDateData";
+    private static final String TAG_GetPostColor ="GetPostColorData";
+    private static final String TAG_GetPostMoreInfo ="GetPostMoreInfoData";
+    private static final String TAG_GetPostImg ="GetPostImgData";
 
     private ImageView imgview;
 
-    private TextView mTextViewResult;
+    //private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mlistView;
     String mJsonString;
@@ -48,26 +48,26 @@ public class PostListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.post_list);
+        setContentView(R.layout.get_post_list);
 
         Button homeButton=findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(view -> {
-            Intent intent=new Intent(PostListActivity.this, MainActivity.class);
+            Intent intent=new Intent(GetPostListActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
         Button postingButton=findViewById(R.id.postingBtn);
         postingButton.setOnClickListener(view -> {
-            Intent intent=new Intent(PostListActivity.this, PostingActivity.class);
+            Intent intent=new Intent(GetPostListActivity.this, SelectPostingActivity.class);
             startActivity(intent);
         });
 
-        mTextViewResult = (TextView)findViewById(R.id.lost_textView_main_result);
-        mlistView = (ListView) findViewById(R.id.lost_listView_main_list);
+        //mTextViewResult = (TextView)findViewById(R.id.get_textView_main_result);
+        mlistView = (ListView) findViewById(R.id.get_listView_main_list);
         mArrayList = new ArrayList<>();
 
         GetData task = new GetData();
-        task.execute("http://jamong.ivyro.net/getjson.php");
+        task.execute("http://jamong.ivyro.net/GetPostGetJson.php");
     }
 
 
@@ -78,31 +78,25 @@ public class PostListActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(PostListActivity.this,
+            progressDialog = ProgressDialog.show(GetPostListActivity.this,
                     "Please Wait", null, true, true);
         }
-
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
+            //mTextViewResult.setText(result);
             Log.d(TAG, "response  - " + result);
 
             if (result == null){
-
-                mTextViewResult.setText(errorString);
+                //mTextViewResult.setText(errorString);
             }
             else {
-
                 mJsonString = result;
                 showResult();
             }
         }
-
 
         @Override
         protected String doInBackground(String... params) {
@@ -110,7 +104,6 @@ public class PostListActivity extends AppCompatActivity {
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.connect();
@@ -134,22 +127,16 @@ public class PostListActivity extends AppCompatActivity {
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
                 }
-
                 bufferedReader.close();
-
                 return sb.toString().trim();
-
             } catch (Exception e) {
-
                 Log.d(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
-
                 return null;
             }
 
         }
     }
-
 
     private void showResult(){
         try {
@@ -157,30 +144,29 @@ public class PostListActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray.length();i++){
-
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String PostTitleData = item.getString(TAG_PostTitle );
-                String PostPlaceData = item.getString(TAG_PostPlace );
-                String PostDateData = item.getString(TAG_PostDate );
-                String PostColorData = item.getString(TAG_PostColor );
-                String PostMoreInfoData = item.getString(TAG_PostMoreInfo );
-                String PostImgData = item.getString(TAG_PostImg );
+                String GetPostTitleData = item.getString(TAG_GetPostTitle );
+                String GetPostPlaceData = item.getString(TAG_GetPostPlace );
+                String GetPostDateData = item.getString(TAG_GetPostDate );
+                String GetPostColorData = item.getString(TAG_GetPostColor );
+                String GetPostMoreInfoData = item.getString(TAG_GetPostMoreInfo );
+                String GetPostImgData = item.getString(TAG_GetPostImg );
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
-                hashMap.put(TAG_PostTitle, PostTitleData);
-                hashMap.put(TAG_PostPlace, PostPlaceData);
-                hashMap.put(TAG_PostDate, PostDateData);
-                hashMap.put(TAG_PostColor, PostColorData);
-                hashMap.put(TAG_PostMoreInfo, PostMoreInfoData);
-                hashMap.put(TAG_PostImg, PostImgData);
+                hashMap.put(TAG_GetPostTitle, GetPostTitleData);
+                hashMap.put(TAG_GetPostPlace, GetPostPlaceData);
+                hashMap.put(TAG_GetPostDate, GetPostDateData);
+                hashMap.put(TAG_GetPostColor, GetPostColorData);
+                hashMap.put(TAG_GetPostMoreInfo, GetPostMoreInfoData);
+                hashMap.put(TAG_GetPostImg, GetPostImgData);
                 mArrayList.add(hashMap);
             }
             ListAdapter adapter = new SimpleAdapter(
-                    PostListActivity.this, mArrayList, R.layout.post_list_item,
-                    new String[]{TAG_PostTitle ,TAG_PostPlace , TAG_PostDate, TAG_PostColor,  TAG_PostMoreInfo, TAG_PostImg},
-                    new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_textView_list_img}
+                    GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
+                    new String[]{TAG_GetPostTitle ,TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
+                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_textView_list_img}
             );
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button button=findViewById(R.id.postingBtn);
         button.setOnClickListener(view -> {
-            Intent intent=new Intent(MainActivity.this, PostingActivity.class);
+            Intent intent=new Intent(MainActivity.this, SelectPostingActivity.class);
             startActivity(intent);
         });
     }

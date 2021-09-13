@@ -1,30 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".PostListActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="46dp">
-            <ListView
-                android:id="@+id/lost_listView_main_list"
-                android:layout_width="match_parent"
-                android:layout_height="525dp"
-                android:layout_margin="5dp"
-                android:layout_weight="6"
-                android:padding="5dp" />
-            <TextView
-                android:id="@+id/lost_textView_main_result"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:layout_weight="4"
-                android:padding="5dp" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:text="분실물과 습득물 중에서 선택해 주세요"
+            android:textSize="18dp"
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="209dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="425dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/select_lost_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_weight="1"
+                android:text="분실물"
+                android:textSize="30dp"/>
+
+            <Button
+                android:id="@+id/select_get_btn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="20dp"
+                android:text="습득물"
+                android:textSize="30dp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,4 +84,5 @@
                 android:text="my" />
         </LinearLayout>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -25,5 +25,11 @@
         <activity android:name=".PostingActivity" />
         <activity android:name=".LostPostActivity" />
         <activity android:name=".PostListActivity" />
+        <activity android:name=".LostPostListActivity" />
+        <activity android:name=".GetPostListActivity" />
+        <activity android:name=".SelectPostingActivity" />
+        <activity android:name=".LostPostingActivity" />
+        <activity android:name=".GetPostingActivity" />
+
     </application>
 </manifest>

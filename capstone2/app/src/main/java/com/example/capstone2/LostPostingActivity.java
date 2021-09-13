@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 
-public class PostingActivity extends AppCompatActivity {
+public class LostPostingActivity extends AppCompatActivity {
     private EditText postingTitle, placeData, moreInfo;
     private TextView date, color;
     private AlertDialog inputErrorDialog;
@@ -39,27 +39,33 @@ public class PostingActivity extends AppCompatActivity {
     //사진 요청 코드
     private static final int REQUEST_CODE=0;
 
-//    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
+    //    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
     String[] colorItems = {"검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
-    
+
     //날짜 선택 구현
     DatePickerDialog.OnDateSetListener dateSetListener=
-        new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int yy, int mm, int dd) {
-                //DatePicker 선택한 날짜를 TextView 에 설정
-                TextView dateView=findViewById(R.id.LostDateData);
-                dateView.setText(String.format("%d/%d/%d",yy,mm+1,dd));
-            }
-        };
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int yy, int mm, int dd) {
+                    //DatePicker 선택한 날짜를 TextView 에 설정
+                    TextView dateView=findViewById(R.id.LostDateData);
+                    dateView.setText(String.format("%d/%d/%d",yy,mm+1,dd));
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.posting);
+        setContentView(R.layout.lost_posting);
 
         Button homeButton=findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(view -> finish());
+
+        Button postingButton=findViewById(R.id.postingBtn);
+        postingButton.setOnClickListener(view -> {
+            Intent intent=new Intent(LostPostingActivity.this, SelectPostingActivity.class);
+            startActivity(intent);
+        });
 
         //img입력 처리
         img=findViewById(R.id.LostImgData);
@@ -108,16 +114,16 @@ public class PostingActivity extends AppCompatActivity {
         Button inputButton=findViewById(R.id.inputBtn);
 
         inputButton.setOnClickListener(view -> {
-            String PostTitleData=postingTitle.getText().toString();
-            String PostPlaceData=placeData.getText().toString();
-            String PostDateData=date.getText().toString();
-            String PostColorData=color.getText().toString();
-            String PostMoreInfoData=moreInfo.getText().toString();
-            String PostImgData=urii.toString();
+            String LostPostTitleData=postingTitle.getText().toString();
+            String LostPostPlaceData=placeData.getText().toString();
+            String LostPostDateData=date.getText().toString();
+            String LostPostColorData=color.getText().toString();
+            String LostPostMoreInfoData=moreInfo.getText().toString();
+            String LostPostImgData=urii.toString();
             Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
-            if (PostTitleData.equals("") || PostPlaceData.equals("")) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PostingActivity.this);
+            if (LostPostTitleData.equals("") || LostPostPlaceData.equals("") || LostPostImgData.equals("")) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LostPostingActivity.this);
                 inputErrorDialog = builder.setMessage("모두 입력해주세요.").setNegativeButton("확인", null).create();
                 inputErrorDialog.show();
                 return;
@@ -132,7 +138,7 @@ public class PostingActivity extends AppCompatActivity {
                         boolean success=JsonObject.getBoolean("success");
                         if(success){
                             Toast.makeText(getApplicationContext(),"게시글 등록 성공",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PostingActivity.this,PostListActivity.class);
+                            Intent intent = new Intent(LostPostingActivity.this,LostPostListActivity.class);
                             startActivity(intent);
                         }else{
                             Toast.makeText(getApplicationContext(),"게시글 등록 실패",Toast.LENGTH_SHORT).show();
@@ -144,10 +150,10 @@ public class PostingActivity extends AppCompatActivity {
                 }
             };
             //서버로 Volley 이용해서 요청
-            PostingRequest postingRequest = new PostingRequest(  PostTitleData,  PostPlaceData
-                    ,  PostDateData,  PostMoreInfoData, PostColorData, PostImgData, responseListener);
-            RequestQueue queue = Volley.newRequestQueue( PostingActivity.this );
-            queue.add( postingRequest );
+            LostPostingRequest lostPostingRequest = new LostPostingRequest(  LostPostTitleData,  LostPostPlaceData
+                    ,  LostPostDateData,  LostPostMoreInfoData, LostPostColorData, LostPostImgData, responseListener);
+            RequestQueue queue = Volley.newRequestQueue( LostPostingActivity.this );
+            queue.add( lostPostingRequest );
         });
     }
 
@@ -162,7 +168,7 @@ public class PostingActivity extends AppCompatActivity {
                     //다이얼로그 이미지 사진에 넣기
                     Glide.with(getApplicationContext()).load(uri).into(img);
                 }catch(Exception e){
-                    
+
                 }
             }else if(resultCode == RESULT_CANCELED){
                 //취소시 호출할 행동

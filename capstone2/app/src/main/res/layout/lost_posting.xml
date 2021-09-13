@@ -16,30 +16,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:id="@+id/checkbox"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioGroup
-                        android:id="@+id/whatGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RadioButton
-                            android:id="@+id/lostThing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="분실물"/>
-                        <RadioButton
-                            android:id="@+id/getThing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="습득물"/>
-                    </RadioGroup>
-                </LinearLayout>
+                    android:layout_gravity="center"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:text="분실물"/>
                 <LinearLayout
                     android:id="@+id/titleLayout"
                     android:layout_width="match_parent"
@@ -90,7 +73,7 @@
                         android:id="@+id/colorView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="      분실/습득물 색상  :    "
+                        android:text="      분실물 색상  :    "
                         />
                     <TextView
                         android:id="@+id/colorData"
@@ -116,7 +99,7 @@
                         android:id="@+id/placeView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="      분실/습득 장소 :    "
+                        android:text="      분실 장소 :    "
                         />
                     <EditText
                         android:id="@+id/LostPlaceData"
@@ -134,7 +117,7 @@
                         android:id="@+id/dateView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="      분실/습득 날짜 :    "
+                        android:text="      분실 날짜 :    "
                         />
                     <TextView
                         android:id="@+id/LostDateData"
