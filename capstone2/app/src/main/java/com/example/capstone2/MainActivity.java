@@ -13,9 +13,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button=findViewById(R.id.postingBtn);
-        button.setOnClickListener(view -> {
+        Button postingButton=findViewById(R.id.postingBtn);
+        postingButton.setOnClickListener(view -> {
             Intent intent=new Intent(MainActivity.this, SelectPostingActivity.class);
+            startActivity(intent);
+        });
+
+        Button searchButton=findViewById(R.id.searchBtn);
+        searchButton.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this, SelectSearchPostActivity.class);
             startActivity(intent);
         });
     }

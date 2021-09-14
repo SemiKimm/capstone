@@ -59,7 +59,11 @@ public class GetPostingActivity extends AppCompatActivity {
         setContentView(R.layout.get_posting);
 
         Button homeButton=findViewById(R.id.homeBtn);
-        homeButton.setOnClickListener(view -> finish());
+        homeButton.setOnClickListener(view -> {
+            Intent intent=new Intent(GetPostingActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+        //homeButton.setOnClickListener(view -> finish()); 이건 이전화면으로 돌아가기 기능
 
         Button postingButton=findViewById(R.id.postingBtn);
         postingButton.setOnClickListener(view -> {

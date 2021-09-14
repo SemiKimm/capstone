@@ -30,6 +30,9 @@
         <activity android:name=".SelectPostingActivity" />
         <activity android:name=".LostPostingActivity" />
         <activity android:name=".GetPostingActivity" />
+        <activity android:name=".SelectSearchPostActivity" />
+        <activity android:name=".SearchGetPostActivity" />
+        <activity android:name=".SearchLostPostActivity" />
 
     </application>
 </manifest>

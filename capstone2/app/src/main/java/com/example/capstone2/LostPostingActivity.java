@@ -59,7 +59,10 @@ public class LostPostingActivity extends AppCompatActivity {
         setContentView(R.layout.lost_posting);
 
         Button homeButton=findViewById(R.id.homeBtn);
-        homeButton.setOnClickListener(view -> finish());
+        homeButton.setOnClickListener(view -> {
+            Intent intent=new Intent(LostPostingActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
         Button postingButton=findViewById(R.id.postingBtn);
         postingButton.setOnClickListener(view -> {
