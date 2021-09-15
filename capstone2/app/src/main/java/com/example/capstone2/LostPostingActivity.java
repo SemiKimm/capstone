@@ -31,7 +31,7 @@ import java.util.Calendar;
 
 public class LostPostingActivity extends AppCompatActivity {
     private EditText postingTitle, placeData, moreInfo;
-    private TextView date, color;
+    private TextView date, color, category, local;
     private AlertDialog inputErrorDialog;
     private Button imgButton;
     private ImageView img;
@@ -40,7 +40,11 @@ public class LostPostingActivity extends AppCompatActivity {
     private static final int REQUEST_CODE=0;
 
     //    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
-    String[] colorItems = {"검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
+    String[] colorItems = {"선택","검정색","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
+    String[] categoryItems = {"선택","가방", "의류", "전자제품", "악세서리", "모자", "신발", "시계", "휴대폰"};
+    String[] localItems = {"선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
+            , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
+            , "제주특별자치도", "세종특별자치시", "기타"};
 
     //날짜 선택 구현
     DatePickerDialog.OnDateSetListener dateSetListener=
@@ -103,11 +107,51 @@ public class LostPostingActivity extends AppCompatActivity {
             }
         });
 
+        //categorySpinner 처리 (물건분류선택처리)
+        Spinner categorySpin = (Spinner)findViewById(R.id.lostPostingCategorySpinner);
+        category=findViewById(R.id.lostPostingCategoryData);
+        ArrayAdapter<String> categoryAdapter=new ArrayAdapter<String>(
+                this,android.R.layout.simple_spinner_item,categoryItems
+        );
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        categorySpin.setAdapter(categoryAdapter);
+        categorySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override//선택되면
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                category.setText(categoryItems[position]);
+            }
+            @Override//아무것도 선택 안되면
+            public void onNothingSelected(AdapterView<?> parent) {
+                category.setText("물건 분류 선택");
+            }
+        });
+
+        //localSpinner 처리 (물건분류선택처리)
+        Spinner localSpin = (Spinner)findViewById(R.id.lostPostingLocalSpinner);
+        local=findViewById(R.id.lostPostingLocalData);
+        ArrayAdapter<String> localAdapter=new ArrayAdapter<String>(
+                this,android.R.layout.simple_spinner_item,localItems
+        );
+        localAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        localSpin.setAdapter(localAdapter);
+        localSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override//선택되면
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                local.setText(localItems[position]);
+            }
+            @Override//아무것도 선택 안되면
+            public void onNothingSelected(AdapterView<?> parent) {
+                local.setText("물건 분류 선택");
+            }
+        });
+
+        //날짜선택 처리
         Button dateBtn=findViewById(R.id.selectDateBtn);
         dateBtn.setOnClickListener(view -> {
             Calendar calender = Calendar.getInstance();
             new DatePickerDialog(this, dateSetListener, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DATE)).show();});
 
+        //디비 연동
         postingTitle = (EditText) findViewById(R.id.LostPostingTitle);
         placeData = (EditText) findViewById(R.id.LostPlaceData);
         moreInfo = (EditText) findViewById(R.id.LostMoreInfo);

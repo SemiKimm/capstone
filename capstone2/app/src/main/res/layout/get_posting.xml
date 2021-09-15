@@ -64,6 +64,32 @@
                         />
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lostPostingCategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/getPostingCategoryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      카테고리 :    "
+                        />
+                    <TextView
+                        android:id="@+id/getPostingCategoryData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="물건 분류 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/getPostingCategorySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/colorLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,6 +109,32 @@
                         />
                     <Spinner
                         android:id="@+id/GetColorSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getPostingLocalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/getPostingLocalView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      습득 지역 :    "
+                        />
+                    <TextView
+                        android:id="@+id/getPostingLocalData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="습득 지역 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/getPostingLocalSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"

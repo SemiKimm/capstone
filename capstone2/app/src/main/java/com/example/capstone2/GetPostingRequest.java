@@ -12,7 +12,8 @@ public class GetPostingRequest extends StringRequest{
     final static private String URL = "http://jamong.ivyro.net/GetPosting.php";
     private Map<String, String> map;
     public GetPostingRequest(String GetPostTitleData, String GetPostPlaceData
-            , String GetPostDateData, String GetPostMoreInfoData, String GetPostColorData, String GetPostImgData,
+            , String GetPostDateData, String GetPostMoreInfoData, String GetPostColorData, String GetPostImgData
+            , String GetPostCategoryData, String GetPostLocalData,
                               Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
@@ -23,6 +24,8 @@ public class GetPostingRequest extends StringRequest{
         map.put("GetPostMoreInfoData", GetPostMoreInfoData);
         map.put("GetPostColorData", GetPostColorData);
         map.put("GetPostImgData", GetPostImgData);
+        map.put("GetPostCategoryData", GetPostCategoryData);
+        map.put("GetPostLocalData", GetPostLocalData);
     }
 
     @Override

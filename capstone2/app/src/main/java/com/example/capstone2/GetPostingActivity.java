@@ -31,7 +31,7 @@ import java.util.Calendar;
 
 public class GetPostingActivity extends AppCompatActivity {
     private EditText postingTitle, placeData, moreInfo;
-    private TextView date, color;
+    private TextView date, color, category, local;
     private AlertDialog inputErrorDialog;
     private Button imgButton;
     private ImageView img;
@@ -41,6 +41,10 @@ public class GetPostingActivity extends AppCompatActivity {
 
     //    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
     String[] colorItems = {"검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
+    String[] categoryItems = {"가방", "의류", "전자제품", "악세서리", "모자", "신발", "시계", "휴대폰"};
+    String[] localItems = {"선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
+            , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
+            , "제주특별자치도", "세종특별자치시", "기타"};
 
     //날짜 선택 구현
     DatePickerDialog.OnDateSetListener dateSetListener=
@@ -104,16 +108,58 @@ public class GetPostingActivity extends AppCompatActivity {
             }
         });
 
+        //categorySpinner 처리 (물건분류선택처리)
+        Spinner categorySpin = (Spinner)findViewById(R.id.getPostingCategorySpinner);
+        category=findViewById(R.id.getPostingCategoryData);
+        ArrayAdapter<String> categoryAdapter=new ArrayAdapter<String>(
+                this,android.R.layout.simple_spinner_item,categoryItems
+        );
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        categorySpin.setAdapter(categoryAdapter);
+        categorySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override//선택되면
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                category.setText(categoryItems[position]);
+            }
+            @Override//아무것도 선택 안되면
+            public void onNothingSelected(AdapterView<?> parent) {
+                category.setText("물건 분류 선택");
+            }
+        });
+
+        //localSpinner 처리 (물건분류선택처리)
+        Spinner localSpin = (Spinner)findViewById(R.id.getPostingLocalSpinner);
+        local=findViewById(R.id.getPostingLocalData);
+        ArrayAdapter<String> localAdapter=new ArrayAdapter<String>(
+                this,android.R.layout.simple_spinner_item,localItems
+        );
+        localAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        localSpin.setAdapter(localAdapter);
+        localSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override//선택되면
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                local.setText(localItems[position]);
+            }
+            @Override//아무것도 선택 안되면
+            public void onNothingSelected(AdapterView<?> parent) {
+                local.setText("물건 분류 선택");
+            }
+        });
+
+        //날짜 선택 처리
         Button dateBtn=findViewById(R.id.selectDateBtn);
         dateBtn.setOnClickListener(view -> {
             Calendar calender = Calendar.getInstance();
             new DatePickerDialog(this, dateSetListener, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DATE)).show();});
 
+        //디비 연동
         postingTitle = (EditText) findViewById(R.id.GetPostingTitle);
         placeData = (EditText) findViewById(R.id.GetPlaceData);
         moreInfo = (EditText) findViewById(R.id.GetMoreInfo);
         date = findViewById(R.id.GetDateData);
         color = findViewById(R.id.GetColorData);
+        category = findViewById(R.id.getPostingCategoryData);
+        local = findViewById(R.id.getPostingLocalData);
 
         Button inputButton=findViewById(R.id.inputBtn);
 
@@ -124,6 +170,8 @@ public class GetPostingActivity extends AppCompatActivity {
             String GetPostColorData=color.getText().toString();
             String GetPostMoreInfoData=moreInfo.getText().toString();
             String GetPostImgData=urii.toString();
+            String GetPostCategoryData=category.getText().toString();
+            String GetPostLocalData=local.getText().toString();
             Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
             if (GetPostTitleData.equals("") || GetPostPlaceData.equals("") || GetPostImgData.equals("")) {
@@ -155,7 +203,8 @@ public class GetPostingActivity extends AppCompatActivity {
             };
             //서버로 Volley 이용해서 요청
             GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostTitleData,  GetPostPlaceData
-                    ,  GetPostDateData,  GetPostMoreInfoData, GetPostColorData, GetPostImgData, responseListener);
+                    ,  GetPostDateData,  GetPostMoreInfoData, GetPostColorData, GetPostImgData
+                    , GetPostCategoryData,GetPostLocalData,responseListener);
             RequestQueue queue = Volley.newRequestQueue( GetPostingActivity.this );
             queue.add( getPostingRequest );
         });

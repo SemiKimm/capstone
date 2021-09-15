@@ -64,6 +64,32 @@
                         />
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lostPostingCategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/lostPostingCategoryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      카테고리 :    "
+                        />
+                    <TextView
+                        android:id="@+id/lostPostingCategoryData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="물건 분류 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/lostPostingCategorySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/colorLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,6 +109,32 @@
                         />
                     <Spinner
                         android:id="@+id/LostColorSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lostPostingLocalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/lostPostingLocalView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      분실 지역 :    "
+                        />
+                    <TextView
+                        android:id="@+id/lostPostingLocalData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="분실 지역 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/lostPostingLocalSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"
