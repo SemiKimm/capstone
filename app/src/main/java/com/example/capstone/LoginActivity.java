@@ -81,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Toast.makeText(getApplicationContext(), String.format("%s님 로그인에 성공하였습니다.", user_name),Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent( LoginActivity.this, MypageActivity.class );
-                                intent.putExtra("user_name", user_name);
-                                intent.putExtra("session", session);
-                                intent.putExtra("login_id",sharedPreferences.getString("inputId",""));
+                                //intent.putExtra("user_name", user_name);
+                                //intent.putExtra("session", session);
+                                //intent.putExtra("login_id",sharedPreferences.getString("inputId",""));
 
 
 
