@@ -8,14 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileEditRequest extends StringRequest {
-    final static private String URL = "http://myapp.dothome.co.kr/.php";
+    final static private String URL = "http://myapp.dothome.co.kr/editUserInfo.php";
     private Map<String, String> map;
 
-    public ProfileEditRequest(String ProfileImg, Response.Listener<String> listener) {
+    public ProfileEditRequest(String id, String pwd, String imgLocation, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
-        map.put("ProfileImg", ProfileImg);
+        map.put("login_id", id);
+        map.put("login_pwd", pwd);
+        map.put("profile_img", imgLocation);
 
 
     }

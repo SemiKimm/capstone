@@ -148,8 +148,8 @@ public class MypageActivity extends AppCompatActivity {
 
 
             tv_name.setText(user_name);
-            //tv_session.setText(session);
-            tv_id.setText(profile_img);
+            tv_session.setText(login_pwd);
+            //tv_id.setText(profile_img);
 
             // 프로필 이미지
             img=findViewById(R.id.user_profile);
