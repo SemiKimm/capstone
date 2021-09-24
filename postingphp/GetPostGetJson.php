@@ -20,11 +20,13 @@ if($result){
    while($row=mysqli_fetch_array($result)){
        array_push($data, 
            array('GetPostTitleData'=>$row[0],
-           'GetPostPlaceData'=>$row[1],
-           'GetPostDateData'=>$row[2],
-           'GetPostColorData'=>$row[3],
-           'GetPostMoreInfoData'=>$row[4],
-           'GetPostImgData'=>$row[5]
+           'GetPostCategoryData'=>$row[1],
+           'GetPostLocalData'=>$row[2],
+           'GetPostPlaceData'=>$row[3],
+           'GetPostDateData'=>$row[4],
+           'GetPostColorData'=>$row[5],
+           'GetPostMoreInfoData'=>$row[6],
+           'GetPostImgData'=>$row[7]
        ));
    }
 
