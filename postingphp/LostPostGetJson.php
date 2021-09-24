@@ -20,11 +20,13 @@ if($result){
    while($row=mysqli_fetch_array($result)){
        array_push($data, 
            array('LostPostTitleData'=>$row[0],
-           'LostPostPlaceData'=>$row[1],
-           'LostPostDateData'=>$row[2],
-           'LostPostColorData'=>$row[3],
-           'LostPostMoreInfoData'=>$row[4],
-           'LostPostImgData'=>$row[5]
+           'LostPostCategoryData'=>$row[1],
+           'LostPostLocalData'=>$row[2],
+           'LostPostPlaceData'=>$row[3],
+           'LostPostDateData'=>$row[4],
+           'LostPostColorData'=>$row[5],
+           'LostPostMoreInfoData'=>$row[6],
+           'LostPostImgData'=>$row[7]
        ));
    }
 
