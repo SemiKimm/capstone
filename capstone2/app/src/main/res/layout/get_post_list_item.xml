@@ -69,8 +69,8 @@
         android:layout_weight="5"
         android:layout_margin="5dp"
         android:padding="5dp" />
-    <ImageView
-        android:id="@+id/get_imgView_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+<!--    <ImageView-->
+<!--        android:id="@+id/get_imgView_list"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content" />-->
 </LinearLayout>

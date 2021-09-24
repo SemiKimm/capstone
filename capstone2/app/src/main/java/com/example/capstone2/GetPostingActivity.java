@@ -202,9 +202,9 @@ public class GetPostingActivity extends AppCompatActivity {
                 }
             };
             //서버로 Volley 이용해서 요청
-            GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostTitleData,  GetPostPlaceData
+            GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostTitleData, GetPostCategoryData,GetPostLocalData,  GetPostPlaceData
                     ,  GetPostDateData,  GetPostMoreInfoData, GetPostColorData, GetPostImgData
-                    , GetPostCategoryData,GetPostLocalData,responseListener);
+                    ,responseListener);
             RequestQueue queue = Volley.newRequestQueue( GetPostingActivity.this );
             queue.add( getPostingRequest );
         });

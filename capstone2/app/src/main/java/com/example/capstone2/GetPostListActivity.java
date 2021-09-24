@@ -30,6 +30,8 @@ public class GetPostListActivity extends AppCompatActivity {
 
     private static final String TAG_JSON="getpostdata";
     private static final String TAG_GetPostTitle = "GetPostTitleData";
+    private static final String TAG_GetPostCategory = "GetPostCategoryData";
+    private static final String TAG_GetPostLocal = "GetPostLocalData";
     private static final String TAG_GetPostPlace = "GetPostPlaceData";
     private static final String TAG_GetPostDate ="GetPostDateData";
     private static final String TAG_GetPostColor ="GetPostColorData";
@@ -147,6 +149,8 @@ public class GetPostListActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String GetPostTitleData = item.getString(TAG_GetPostTitle );
+                String GetPostCategoryData = item.getString(TAG_GetPostCategory );
+                String GetPostLocalData = item.getString(TAG_GetPostLocal );
                 String GetPostPlaceData = item.getString(TAG_GetPostPlace );
                 String GetPostDateData = item.getString(TAG_GetPostDate );
                 String GetPostColorData = item.getString(TAG_GetPostColor );
@@ -156,6 +160,8 @@ public class GetPostListActivity extends AppCompatActivity {
                 HashMap<String,String> hashMap = new HashMap<>();
 
                 hashMap.put(TAG_GetPostTitle, GetPostTitleData);
+                hashMap.put(TAG_GetPostCategory, GetPostCategoryData);
+                hashMap.put(TAG_GetPostLocal, GetPostLocalData);
                 hashMap.put(TAG_GetPostPlace, GetPostPlaceData);
                 hashMap.put(TAG_GetPostDate, GetPostDateData);
                 hashMap.put(TAG_GetPostColor, GetPostColorData);
@@ -165,8 +171,8 @@ public class GetPostListActivity extends AppCompatActivity {
             }
             ListAdapter adapter = new SimpleAdapter(
                     GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
-                    new String[]{TAG_GetPostTitle ,TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
-                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_textView_list_img}
+                    new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
+                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_textView_list_img}
             );
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
