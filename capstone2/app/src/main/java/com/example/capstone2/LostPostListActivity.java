@@ -30,6 +30,8 @@ public class LostPostListActivity extends AppCompatActivity {
 
     private static final String TAG_JSON="lostpostdata";
     private static final String TAG_LostPostTitle = "LostPostTitleData";
+    private static final String TAG_LostPostCategory = "LostPostCategoryData";
+    private static final String TAG_LostPostLocal ="LostPostLocalData";
     private static final String TAG_LostPostPlace = "LostPostPlaceData";
     private static final String TAG_LostPostDate ="LostPostDateData";
     private static final String TAG_LostPostColor ="LostPostColorData";
@@ -150,6 +152,8 @@ public class LostPostListActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String LostPostTitleData = item.getString(TAG_LostPostTitle );
+                String LostPostCategoryData = item.getString(TAG_LostPostCategory );
+                String LostPostLocalData = item.getString(TAG_LostPostLocal );
                 String LostPostPlaceData = item.getString(TAG_LostPostPlace );
                 String LostPostDateData = item.getString(TAG_LostPostDate );
                 String LostPostColorData = item.getString(TAG_LostPostColor );
@@ -159,6 +163,8 @@ public class LostPostListActivity extends AppCompatActivity {
                 HashMap<String,String> hashMap = new HashMap<>();
 
                 hashMap.put(TAG_LostPostTitle, LostPostTitleData);
+                hashMap.put(TAG_LostPostCategory, LostPostCategoryData);
+                hashMap.put(TAG_LostPostLocal, LostPostLocalData);
                 hashMap.put(TAG_LostPostPlace, LostPostPlaceData);
                 hashMap.put(TAG_LostPostDate, LostPostDateData);
                 hashMap.put(TAG_LostPostColor, LostPostColorData);
@@ -168,8 +174,8 @@ public class LostPostListActivity extends AppCompatActivity {
             }
             ListAdapter adapter = new SimpleAdapter(
                     LostPostListActivity.this, mArrayList, R.layout.lost_post_list_item,
-                    new String[]{TAG_LostPostTitle ,TAG_LostPostPlace , TAG_LostPostDate, TAG_LostPostColor,  TAG_LostPostMoreInfo, TAG_LostPostImg},
-                    new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_textView_list_img}
+                    new String[]{TAG_LostPostTitle , TAG_LostPostCategory, TAG_LostPostLocal, TAG_LostPostPlace, TAG_LostPostDate, TAG_LostPostColor,  TAG_LostPostMoreInfo, TAG_LostPostImg},
+                    new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_textView_list_img}
             );
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {

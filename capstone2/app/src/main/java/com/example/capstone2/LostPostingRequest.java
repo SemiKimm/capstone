@@ -11,13 +11,15 @@ public class LostPostingRequest extends StringRequest{
     //서버 URL 설정(php 파일 연동)
     final static private String URL = "http://jamong.ivyro.net/LostPosting.php";
     private Map<String, String> map;
-    public LostPostingRequest(String LostPostTitleData, String LostPostPlaceData
+    public LostPostingRequest(String LostPostTitleData, String LostPostCategoryData, String LostPostLocalData, String LostPostPlaceData
             , String LostPostDateData, String LostPostMoreInfoData, String LostPostColorData, String LostPostImgData,
                           Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
         map.put("LostPostTitleData", LostPostTitleData);
+        map.put("LostPostCategoryData", LostPostCategoryData);
+        map.put("LostPostLocalData", LostPostLocalData);
         map.put("LostPostPlaceData", LostPostPlaceData);
         map.put("LostPostDateData", LostPostDateData);
         map.put("LostPostMoreInfoData", LostPostMoreInfoData);

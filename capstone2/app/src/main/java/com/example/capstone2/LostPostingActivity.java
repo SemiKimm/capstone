@@ -157,6 +157,8 @@ public class LostPostingActivity extends AppCompatActivity {
         moreInfo = (EditText) findViewById(R.id.LostMoreInfo);
         date = findViewById(R.id.LostDateData);
         color = findViewById(R.id.colorData);
+        category = findViewById(R.id.lostPostingCategoryData);
+        local = findViewById(R.id.lostPostingLocalData);
 
         Button inputButton=findViewById(R.id.inputBtn);
 
@@ -167,6 +169,8 @@ public class LostPostingActivity extends AppCompatActivity {
             String LostPostColorData=color.getText().toString();
             String LostPostMoreInfoData=moreInfo.getText().toString();
             String LostPostImgData=urii.toString();
+            String LostPostCategoryData=category.getText().toString();
+            String LostPostLocalData=local.getText().toString();
             Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
             if (LostPostTitleData.equals("") || LostPostPlaceData.equals("") || LostPostImgData.equals("")) {
@@ -197,7 +201,7 @@ public class LostPostingActivity extends AppCompatActivity {
                 }
             };
             //서버로 Volley 이용해서 요청
-            LostPostingRequest lostPostingRequest = new LostPostingRequest(  LostPostTitleData,  LostPostPlaceData
+            LostPostingRequest lostPostingRequest = new LostPostingRequest(  LostPostTitleData, LostPostCategoryData, LostPostLocalData,  LostPostPlaceData
                     ,  LostPostDateData,  LostPostMoreInfoData, LostPostColorData, LostPostImgData, responseListener);
             RequestQueue queue = Volley.newRequestQueue( LostPostingActivity.this );
             queue.add( lostPostingRequest );
