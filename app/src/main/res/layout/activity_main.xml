@@ -14,4 +14,21 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
+    <Button
+        android:id="@+id/posting"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:text="posting"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/GetPostList"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:text="GetPostList"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true" />
+
+
 </RelativeLayout>

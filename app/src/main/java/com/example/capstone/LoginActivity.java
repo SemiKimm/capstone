@@ -35,10 +35,11 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
-
+        // 로그인 폼 입력값 찾아주기
         et_login_id = findViewById( R.id.id );
         et_login_password = findViewById( R.id.password );
 
+        // 회원가입 버튼 클릭 시 수행
         join_button = findViewById( R.id.registerButton );
         join_button.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        // 로그인 버튼 클릭 시 수행
         login_button = findViewById( R.id.loginButton );
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -66,33 +67,27 @@ public class LoginActivity extends AppCompatActivity {
                             if(success) {//로그인 성공시
 
                                 final String login_id = jsonObject.getString( "login_id" );
-                                String login_pwd = jsonObject.getString( "login_pwd" );
                                 String user_name = jsonObject.getString( "user_name" );
-                                String session = jsonObject.getString( "session" );
 
+                                // sharedprefernece에 정보 저장
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-
                                 editor.putString("inputId", login_id);
-                                //editor.putString("inputPwd", login_pwd);
                                 editor.putString(getResources().getString(R.string.prefLoginState), "loggedin");
                                 editor.putString(getResources().getString(R.string.prefAutoLoginState), "autoLogin");
                                 editor.commit();
 
-
+                                // 로그인 성공 메시지 출력
                                 Toast.makeText(getApplicationContext(), String.format("%s님 로그인에 성공하였습니다.", user_name),Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent( LoginActivity.this, MypageActivity.class );
-                                //intent.putExtra("user_name", user_name);
-                                //intent.putExtra("session", session);
-                                //intent.putExtra("login_id",sharedPreferences.getString("inputId",""));
-
-
-
                                 startActivity( intent );
 
-                            } else {//로그인 실패시
+                            } else {// 로그인 실패시
+                                // sharedprefernece에 정보 저장
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(getResources().getString(R.string.prefLoginState), "loggedout");
                                 editor.commit();
+
+                                // 로그인 실패 메시지 출력
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 dialog = builder.setMessage("아이디 또는 비밀번호가 일치하지 않습니다.").setNegativeButton("확인", null).create();
                                 dialog.show();
@@ -103,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 };
+
+                //서버로 Volley를 이용해서 로그인 처리 요청
                 LoginRequest loginRequest = new LoginRequest( login_id, login_pwd, responseListener );
                 RequestQueue queue = Volley.newRequestQueue( LoginActivity.this );
                 queue.add( loginRequest );
@@ -110,20 +107,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        String loginStatus = sharedPreferences.getString(getResources().getString(R.string.prefAutoLoginState), "");
-        if (loginStatus.equals("autoLogin")){
-            Toast.makeText(getApplicationContext(),"자동 로그인 되었습니다.",Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-            intent.putExtra("login_id", sharedPreferences.getString("inputId",""));
-            //intent.putExtra("userPass", sharedPreferences.getString("inputPwd",""));
-            startActivity(intent);
-            //startActivity(new Intent(LoginActivity.this, MainActivity.class ));
-        }
-
-         */
 
 
     }

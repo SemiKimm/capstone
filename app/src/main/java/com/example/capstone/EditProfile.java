@@ -4,7 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +28,7 @@ import org.w3c.dom.Text;
 public class EditProfile extends AppCompatActivity {
 
     private TextView ed_name, ed_id, ed_pwd;
-    private Button editImg_button, editConfirm_button;
+    private Button editImg_button, editConfirm_button, withdrawal_button;
     private ImageView img;
     //private Uri urii;
     private String profile_img;
@@ -42,6 +44,9 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+
 
         ed_name = findViewById(R.id.edit_name);
         ed_id = findViewById(R.id.edit_id);
@@ -60,14 +65,14 @@ public class EditProfile extends AppCompatActivity {
         // img입력 처리
         img=findViewById(R.id.user_profile);
 
-        // 프로필 이미지
+        // 프로필 이미지 load
         Glide.with(getApplicationContext())
                 .load(profile_img)
                 .into(img);
 
-        // 갤러리에 요청코드 보내기
+        // 프로필 이미지 수정 버튼 클릭 시
         editImg_button = (Button) findViewById(R.id.edit_profileImg);
-
+        // 갤러리에 요청코드 보내기
         editImg_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,10 +91,9 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View view) {
                 final String id = ed_id.getText().toString();
                 final String pwd = ed_pwd.getText().toString();
-                final String imgLocation = profile_img;
-                //final String profile_img_lo = urii.toString();
+                final String imgLocation = profile_img; // 이미지 경로
 
-                //한 칸이라도 입력 안했을 경우
+                //비밀번호 입력 안했을 경우
                 if (pwd.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
                     dialog = builder.setMessage("모두 입력해주세요.").setNegativeButton("확인", null).create();
@@ -123,7 +127,7 @@ public class EditProfile extends AppCompatActivity {
                     }
                 };
 
-                //서버로 Volley를 이용해서 요청
+                //서버로 Volley를 이용해서 프로필 수정 요청
                 ProfileEditRequest profileEditRequest = new ProfileEditRequest( id, pwd, imgLocation, responseListener);
                 RequestQueue queue = Volley.newRequestQueue( EditProfile.this );
                 queue.add( profileEditRequest );
@@ -132,6 +136,57 @@ public class EditProfile extends AppCompatActivity {
 
 
         });
+
+        // 회원탈퇴 버튼 클릭 시 수행
+        withdrawal_button = (Button) findViewById(R.id.withdrawal);
+        withdrawal_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String id = ed_id.getText().toString();
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+
+                                if (success) { // 회원탈퇴에 성공한 경우
+                                    Toast.makeText(getApplicationContext(),"회원탈퇴를 완료 하였습니다.",Toast.LENGTH_SHORT).show();
+
+                                    // sharedpreference에 저장된 정보 삭제
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.remove("inputId");
+                                    editor.remove("inputPwd");
+                                    editor.putString(getResources().getString(R.string.prefAutoLoginState),"non-autoLogin");
+                                    editor.putString(getResources().getString(R.string.prefLoginState),"loggedout");
+                                    editor.apply();
+                                    editor.commit();
+
+                                    Intent intent = new Intent(EditProfile.this, MainActivity.class);
+                                    startActivity(intent);
+                                } else { // 회원탈퇴에 실패한 경우
+                                    Toast.makeText(getApplicationContext(),"회원탈퇴를 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+
+                //서버로 Volley를 이용해서 회원탈퇴 요청
+                DeleteUser deleteUser = new DeleteUser( id, responseListener);
+                RequestQueue queue = Volley.newRequestQueue( EditProfile.this );
+                queue.add( deleteUser );
+            }
+
+        });
+
 
 
     }
@@ -143,16 +198,7 @@ public class EditProfile extends AppCompatActivity {
             if(resultCode==RESULT_OK){
                 try{
                     Uri uri=data.getData();
-                    profile_img = uri.toString();
-                    //urii = uri;
-
-                    /*
-                    // 이미지 경로 출력
-                    EditText imglo = findViewById(R.id.imglocation);
-                    //imglo.setText(urii.toString());
-                    imglo.setText(profile_img);
-
-                     */
+                    profile_img = uri.toString(); // uri string으로 변환
 
                     //다이얼로그 이미지 사진에 넣기
                     Glide.with(getApplicationContext()).load(uri).into(img);

@@ -30,14 +30,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        //아이디값 찾아주기
+        // 회원가입 폼 입력값 찾아주기
         join_id = findViewById( R.id.id );
         join_password = findViewById( R.id.password );
         join_name = findViewById( R.id.name );
         join_pwck = findViewById(R.id.passwordCheck);
         join_phone = findViewById(R.id.phone);
 
-        //아이디 중복 체크
+        // 아이디 중복체크 버튼 클릭 시 실행
         check_button = findViewById(R.id.idDuplicationCheck);
         check_button.setOnClickListener(new View.OnClickListener() {
 
@@ -45,9 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String login_id = join_id.getText().toString();
                 if (validate) {
-                    return; //검증 완료
+                    return; //중복체크 검증 완료
                 }
 
+                // 아이디를 입력하지 않았을 경우
                 if (login_id.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("아이디를 입력하세요.").setPositiveButton("확인", null).create();
@@ -65,14 +66,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
 
-                            if(success) {
+                            if(success) { // 아이디 중복X
                                 dialog = builder.setMessage("사용할 수 있는 아이디입니다.").setPositiveButton("확인", null).create();
                                 dialog.show();
                                 join_id.setEnabled(false); //아이디값 고정
                                 validate = true; //검증 완료
                                 check_button.setBackgroundColor(getResources().getColor(R.color.purple_200));
                             }
-                            else {
+                            else { // 아이디 중복O
                                 dialog = builder.setMessage("이미 존재하는 아이디입니다.").setNegativeButton("확인", null).create();
                                 dialog.show();
                             }
@@ -81,13 +82,15 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 };
+
+                //서버로 Volley를 이용해서 아이디 중복 체크 요청
                 ValidateRequest validateRequest = new ValidateRequest(login_id, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
             }
         });
 
-        //회원가입 버튼 클릭 시 수행
+        //회원가입(완료) 버튼 클릭 시 수행
         join_button = findViewById( R.id.registerButton );
         join_button.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -113,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
 
-                            if(login_pwd.equals(PassCk)) {
+                            if(login_pwd.equals(PassCk)) { // 비밀번호와 비밀번호 확인 일치
                                 if (success) { // 회원등록에 성공한 경우
                                     Toast.makeText(getApplicationContext(),"회원 등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -122,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"회원 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                            } else {
+                            } else { // 비밀번호와 비밀번호 확인 불일치
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("비밀번호가 동일하지 않습니다.").setNegativeButton("확인", null).create();
                                 dialog.show();
@@ -137,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
 
-                //서버로 Volley를 이용해서 요청
+                //서버로 Volley를 이용해서 회원가입 요청
                 RegisterRequest registerRequest = new RegisterRequest( login_id, login_pwd,user_name, user_phone, responseListener);
                 RequestQueue queue = Volley.newRequestQueue( RegisterActivity.this );
                 queue.add( registerRequest );
