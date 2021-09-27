@@ -35,5 +35,6 @@
         <activity android:name=".SearchLostPostActivity" />
         <activity android:name=".SearchLostPostListActivity"/>
         <activity android:name=".GetPostActivity"/>
+        <activity android:name=".SearchGetPostListActivity"/>
     </application>
 </manifest>

@@ -30,7 +30,7 @@ import java.util.HashMap;
 public class SearchLostPostActivity extends AppCompatActivity {
     private TextView date, color, category, local;
 
-    String[] colorItems = {"선택", "검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색"};
+    String[] colorItems = {"선택", "검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색", "갈색"};
     String[] categoryItems = {"선택", "가방", "의류", "전자제품", "악세서리", "모자", "신발", "시계", "휴대폰"};
     String[] localItems = {"선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
             , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
@@ -44,7 +44,6 @@ public class SearchLostPostActivity extends AppCompatActivity {
     private static final String TAG_LostPostColor ="LostPostColorData";
     private static final String TAG_LostPostMoreInfo ="LostPostMoreInfoData";
     private static final String TAG_LostPostImg ="LostPostImgData";
-
 
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mlistView;
@@ -169,53 +168,53 @@ public class SearchLostPostActivity extends AppCompatActivity {
     }
 
     public void searchLostData(){
-        //검색 조건 데이터 받기
-        TextView search_category, search_color, search_local, search_date1, search_date2;
-        EditText search_place;
-        search_category = findViewById(R.id.searchLostCategoryData);
-        search_color = findViewById(R.id.searchLostColorData);
-        search_local = findViewById(R.id.searchLostLocalData);
-        search_place = findViewById(R.id.searchLostPlaceData);
-        search_date1 = findViewById(R.id.searchLostDateData1);
-        search_date2 = findViewById(R.id.searchLostDateData2);
+                            //검색 조건 데이터 받기
+                            TextView search_category, search_color, search_local, search_date1, search_date2;
+                            EditText search_place;
+                            search_category = findViewById(R.id.searchLostCategoryData);
+                            search_color = findViewById(R.id.searchLostColorData);
+                            search_local = findViewById(R.id.searchLostLocalData);
+                            search_place = findViewById(R.id.searchLostPlaceData);
+                            search_date1 = findViewById(R.id.searchLostDateData1);
+                            search_date2 = findViewById(R.id.searchLostDateData2);
 
-        String search_category_data = search_category.getText().toString();
-        String search_color_data = search_color.getText().toString();
-        String search_local_data = search_local.getText().toString();
-        String search_place_data = search_place.getText().toString();
-        String search_date1_data = search_date1.getText().toString();
-        String search_date2_data = search_date2.getText().toString();
+                            String search_category_data = search_category.getText().toString();
+                            String search_color_data = search_color.getText().toString();
+                            String search_local_data = search_local.getText().toString();
+                            String search_place_data = search_place.getText().toString();
+                            String search_date1_data = search_date1.getText().toString();
+                            String search_date2_data = search_date2.getText().toString();
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject JsonObject = new JSONObject(response);
-                    boolean success=JsonObject.getBoolean("success");
-                    JSONArray jsonArray = JsonObject.getJSONArray("lostpostdata");
+                            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject JsonObject = new JSONObject(response);
+                                        boolean success=JsonObject.getBoolean("success");
+                                        JSONArray jsonArray = JsonObject.getJSONArray("lostpostdata");
 
-                    for(int i=0;i<jsonArray.length();i++){
-                        JSONObject item = jsonArray.getJSONObject(i);
+                                        for(int i=0;i<jsonArray.length();i++){
+                                            JSONObject item = jsonArray.getJSONObject(i);
 
-                        String LostPostTitleData = item.getString(TAG_LostPostTitle );
-                        String LostPostCategoryData = item.getString(TAG_LostPostCategory );
-                        String LostPostLocalData = item.getString(TAG_LostPostLocal );
-                        String LostPostPlaceData = item.getString(TAG_LostPostPlace );
-                        String LostPostDateData = item.getString(TAG_LostPostDate );
-                        String LostPostColorData = item.getString(TAG_LostPostColor );
-                        String LostPostMoreInfoData = item.getString(TAG_LostPostMoreInfo );
-                        String LostPostImgData = item.getString(TAG_LostPostImg );
+                                            String LostPostTitleData = item.getString(TAG_LostPostTitle );
+                                            String LostPostCategoryData = item.getString(TAG_LostPostCategory );
+                                            String LostPostLocalData = item.getString(TAG_LostPostLocal );
+                                            String LostPostPlaceData = item.getString(TAG_LostPostPlace );
+                                            String LostPostDateData = item.getString(TAG_LostPostDate );
+                                            String LostPostColorData = item.getString(TAG_LostPostColor );
+                                            String LostPostMoreInfoData = item.getString(TAG_LostPostMoreInfo );
+                                            String LostPostImgData = item.getString(TAG_LostPostImg );
 
-                        HashMap<String,String> hashMap = new HashMap<>();
+                                            HashMap<String,String> hashMap = new HashMap<>();
 
-                        hashMap.put(TAG_LostPostTitle, LostPostTitleData);
-                        hashMap.put(TAG_LostPostCategory, LostPostCategoryData);
-                        hashMap.put(TAG_LostPostLocal, LostPostLocalData);
-                        hashMap.put(TAG_LostPostPlace, LostPostPlaceData);
-                        hashMap.put(TAG_LostPostDate, LostPostDateData);
-                        hashMap.put(TAG_LostPostColor, LostPostColorData);
-                        hashMap.put(TAG_LostPostMoreInfo, LostPostMoreInfoData);
-                        hashMap.put(TAG_LostPostImg, LostPostImgData);
+                                            hashMap.put(TAG_LostPostTitle, LostPostTitleData);
+                                            hashMap.put(TAG_LostPostCategory, LostPostCategoryData);
+                                            hashMap.put(TAG_LostPostLocal, LostPostLocalData);
+                                            hashMap.put(TAG_LostPostPlace, LostPostPlaceData);
+                                            hashMap.put(TAG_LostPostDate, LostPostDateData);
+                                            hashMap.put(TAG_LostPostColor, LostPostColorData);
+                                            hashMap.put(TAG_LostPostMoreInfo, LostPostMoreInfoData);
+                                            hashMap.put(TAG_LostPostImg, LostPostImgData);
                         mArrayList.add(hashMap);
                         Log.e("test",String.valueOf(mArrayList));
                     }
