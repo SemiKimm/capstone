@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -70,6 +71,30 @@ public class GetPostListActivity extends AppCompatActivity {
 
         GetData task = new GetData();
         task.execute("http://jamong.ivyro.net/GetPostGetJson.php");
+
+        //목록 눌러서 해당 게시글 데이터 받아서 보내기
+        mlistView.setOnItemClickListener((AdapterView.OnItemClickListener) (adapterView, view, index, l) -> {
+            HashMap<String,String> data =(HashMap<String,String>) adapterView.getItemAtPosition(index);
+            Log.e("itemdata",String.valueOf(data));
+            String title=data.get(TAG_GetPostTitle);
+            String category=data.get(TAG_GetPostCategory);
+            String local = data.get(TAG_GetPostLocal);
+            String place = data.get(TAG_GetPostPlace);
+            String color = data.get(TAG_GetPostColor);
+            String date = data.get(TAG_GetPostDate);
+            String moreInfo=data.get(TAG_GetPostMoreInfo);
+            String imgUri=data.get(TAG_GetPostImg);
+            Intent intent = new Intent(GetPostListActivity.this,GetPostActivity.class);
+            intent.putExtra("title",title);
+            intent.putExtra("category",category);
+            intent.putExtra("local",local);
+            intent.putExtra("place",place);
+            intent.putExtra("color",color);
+            intent.putExtra("date",date);
+            intent.putExtra("moreInfo",moreInfo);
+            intent.putExtra("imgUri",imgUri);
+            startActivity(intent);
+        });
     }
 
 

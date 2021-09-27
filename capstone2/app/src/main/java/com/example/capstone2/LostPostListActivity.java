@@ -71,6 +71,7 @@ public class LostPostListActivity extends AppCompatActivity {
         GetData task = new GetData();
         task.execute("http://jamong.ivyro.net/LostPostGetJson.php");
 
+        //목록 눌러서 해당 게시글 데이터 받아서 보내기
         mlistView.setOnItemClickListener((AdapterView.OnItemClickListener) (adapterView, view, index, l) -> {
             HashMap<String,String> data =(HashMap<String,String>) adapterView.getItemAtPosition(index);
             Log.e("itemdata",String.valueOf(data));
