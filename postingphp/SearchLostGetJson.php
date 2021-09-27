@@ -9,8 +9,12 @@
     $date1=$_POST["date1"];
     $date2=$_POST["date2"];
 
-    if(!empty($category)){
-        $sql="SELECT * FROM LOSTPOST WHERE LostPostCategoryData Like '$category'";
+    if(!empty($place)){
+        $sql="SELECT * FROM LOSTPOST WHERE LostPostCategoryData LIKE '$category' AND LostPostColorData LIKE '$color' AND LostPostLocalData LIKE '$local' OR LostPostPlaceData LIKE '%".$place."%'";
+        $statement=mysqli_query($con,$sql);
+    }
+    else if(!empty($category)&&empty($place)){
+        $sql="SELECT * FROM LOSTPOST WHERE LostPostCategoryData LIKE '$category' AND LostPostColorData LIKE '$color' AND LostPostLocalData LIKE '$local'";
         $statement=mysqli_query($con,$sql);
     }
     else{
