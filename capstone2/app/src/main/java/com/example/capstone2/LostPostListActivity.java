@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -45,8 +47,6 @@ public class LostPostListActivity extends AppCompatActivity {
     ListView mlistView;
     String mJsonString;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +70,30 @@ public class LostPostListActivity extends AppCompatActivity {
 
         GetData task = new GetData();
         task.execute("http://jamong.ivyro.net/LostPostGetJson.php");
+
+        mlistView.setOnItemClickListener((AdapterView.OnItemClickListener) (adapterView, view, index, l) -> {
+            HashMap<String,String> data =(HashMap<String,String>) adapterView.getItemAtPosition(index);
+            Log.e("itemdata",String.valueOf(data));
+            String title=data.get(TAG_LostPostTitle);
+            String category=data.get(TAG_LostPostCategory);
+            String local = data.get(TAG_LostPostLocal);
+            String place = data.get(TAG_LostPostPlace);
+            String color = data.get(TAG_LostPostColor);
+            String date = data.get(TAG_LostPostDate);
+            String moreInfo=data.get(TAG_LostPostMoreInfo);
+            String imgUri=data.get(TAG_LostPostImg);
+            Intent intent = new Intent(LostPostListActivity.this,LostPostActivity.class);
+            intent.putExtra("title",title);
+            intent.putExtra("category",category);
+            intent.putExtra("local",local);
+            intent.putExtra("place",place);
+            intent.putExtra("color",color);
+            intent.putExtra("date",date);
+            intent.putExtra("moreInfo",moreInfo);
+            intent.putExtra("imgUri",imgUri);
+            startActivity(intent);
+        });
     }
-
-
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;

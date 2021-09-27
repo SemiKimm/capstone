@@ -49,17 +49,32 @@
                     android:orientation="vertical"
                     >
                     <LinearLayout
-                        android:id="@+id/colorLayout"
+                        android:id="@+id/categoryLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="      색상 :    "
+                            android:text="      분   류 :    "
                             />
                         <TextView
-                            android:id="@+id/postColor"
+                            android:id="@+id/postCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/localLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="      분실  지역 :    "
+                            />
+                        <TextView
+                            android:id="@+id/postLocal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -79,6 +94,22 @@
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/colorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="      색상 :    "
+                            />
+                        <TextView
+                            android:id="@+id/postColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/dateLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,11 +128,11 @@
                     android:id="@+id/moreInfoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="      추가 정보     "/>
+                        android:text="      추가 정보     :"/>
                     <TextView
                         android:id="@+id/postMoreInfo"
                         android:layout_width="match_parent"
