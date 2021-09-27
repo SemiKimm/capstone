@@ -3,12 +3,15 @@ package com.example.capstone2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SearchLostPostListActivity extends AppCompatActivity {
     private static final String TAG_LostPostTitle = "LostPostTitleData";
@@ -55,5 +58,29 @@ public class SearchLostPostListActivity extends AppCompatActivity {
                 new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_textView_list_img}
         );
         mlistView.setAdapter(adapter);
+
+        //목록 눌러서 해당 게시글 데이터 받아서 보내기
+        mlistView.setOnItemClickListener((AdapterView.OnItemClickListener) (adapterView, view, index, l) -> {
+            HashMap<String,String> data =(HashMap<String,String>) adapterView.getItemAtPosition(index);
+            Log.e("itemdata",String.valueOf(data));
+            String title=data.get(TAG_LostPostTitle);
+            String category=data.get(TAG_LostPostCategory);
+            String local = data.get(TAG_LostPostLocal);
+            String place = data.get(TAG_LostPostPlace);
+            String color = data.get(TAG_LostPostColor);
+            String date = data.get(TAG_LostPostDate);
+            String moreInfo=data.get(TAG_LostPostMoreInfo);
+            String imgUri=data.get(TAG_LostPostImg);
+            Intent postIntent = new Intent(SearchLostPostListActivity.this,LostPostActivity.class);
+            postIntent.putExtra("title",title);
+            postIntent.putExtra("category",category);
+            postIntent.putExtra("local",local);
+            postIntent.putExtra("place",place);
+            postIntent.putExtra("color",color);
+            postIntent.putExtra("date",date);
+            postIntent.putExtra("moreInfo",moreInfo);
+            postIntent.putExtra("imgUri",imgUri);
+            startActivity(postIntent);
+        });
     }
 }
