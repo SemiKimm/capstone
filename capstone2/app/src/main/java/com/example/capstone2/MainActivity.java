@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String[] localItems = {"지역 선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
             , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
             , "제주특별자치도", "세종특별자치시", "기타"};
-    String selectedLocal;
+    String selectedLocal, selectedCategory;
 
     //습득물 목록 관련 데이터
     private static String TAG = "getJsonList";
@@ -282,5 +282,51 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("imgUri",imgUri);
             startActivity(intent);
         });
+
+        Button clothbtn=findViewById(R.id.cloth);
+        clothbtn.setOnClickListener(view -> {
+            selectedCategory=clothbtn.getText().toString();
+            Log.e("cloth",selectedCategory);
+            Intent intent=new Intent(MainActivity.this,CategoryLostListActivity.class);
+            intent.putExtra("category",selectedCategory);
+            startActivity(intent);
+        });
+
+        Button bagbtn=findViewById(R.id.bag);
+        bagbtn.setOnClickListener(view -> {
+            selectedCategory=bagbtn.getText().toString();
+            Log.e("bag",selectedCategory);
+            Intent intent=new Intent(MainActivity.this,CategoryLostListActivity.class);
+            intent.putExtra("category",selectedCategory);
+            startActivity(intent);
+        });
+
+        Button accessorybtn=findViewById(R.id.accessory);
+        accessorybtn.setOnClickListener(view -> {
+            selectedCategory=accessorybtn.getText().toString();
+            Log.e("bag",selectedCategory);
+            Intent intent=new Intent(MainActivity.this,CategoryLostListActivity.class);
+            intent.putExtra("category",selectedCategory);
+            startActivity(intent);
+        });
+
+        Button shoesbtn=findViewById(R.id.shoes);
+        shoesbtn.setOnClickListener(view -> {
+            selectedCategory=shoesbtn.getText().toString();
+            Log.e("bag",selectedCategory);
+            Intent intent=new Intent(MainActivity.this,CategoryLostListActivity.class);
+            intent.putExtra("category",selectedCategory);
+            startActivity(intent);
+        });
+
+        Button watchbtn=findViewById(R.id.watch);
+        watchbtn.setOnClickListener(view -> {
+            selectedCategory=watchbtn.getText().toString();
+            Log.e("bag",selectedCategory);
+            Intent intent=new Intent(MainActivity.this,CategoryLostListActivity.class);
+            intent.putExtra("category",selectedCategory);
+            startActivity(intent);
+        });
+
     }
 }
