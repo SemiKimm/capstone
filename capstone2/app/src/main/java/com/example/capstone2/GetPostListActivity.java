@@ -45,8 +45,6 @@ public class GetPostListActivity extends AppCompatActivity {
     ListView mlistView;
     String mJsonString;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
