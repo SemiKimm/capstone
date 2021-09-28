@@ -30,8 +30,8 @@ import java.util.HashMap;
 public class SearchGetPostActivity extends AppCompatActivity {
     private TextView date, color, category, local;
 
-    String[] colorItems = {"선택","검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색","갈색"};
-    String[] categoryItems = {"선택","가방", "의류", "전자제품", "악세서리", "모자", "신발", "시계", "휴대폰"};
+    String[] colorItems = {"선택", "검정색 ","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색","갈색"};
+    String[] categoryItems = {"선택", "가방", "의류", "전자제품", "악세서리", "모자", "신발", "시계", "휴대폰"};
     String[] localItems = {"선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
             , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
             , "제주특별자치도", "세종특별자치시", "기타"};
