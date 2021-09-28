@@ -6,12 +6,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -195,8 +198,21 @@ public class LostPostListActivity extends AppCompatActivity {
             ListAdapter adapter = new SimpleAdapter(
                     LostPostListActivity.this, mArrayList, R.layout.lost_post_list_item,
                     new String[]{TAG_LostPostTitle , TAG_LostPostCategory, TAG_LostPostLocal, TAG_LostPostPlace, TAG_LostPostDate, TAG_LostPostColor,  TAG_LostPostMoreInfo, TAG_LostPostImg},
-                    new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_textView_list_img}
+                    new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_place, R.id.lost_textView_list_date, R.id.lost_textView_list_color, R.id.lost_textView_list_more_info, R.id.lost_imgView_list}
             );
+            ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if(view.getId() == R.id.lost_imgView_list) {
+                        ImageView imageView = (ImageView) view;
+                        String drawable = data.toString();
+                        Glide.with(LostPostListActivity.this).load(drawable).override(200,200)
+                                .error(R.drawable.defaultimg).into(imageView);
+                        return true;
+                    }
+                    return false;
+                }
+            });
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);

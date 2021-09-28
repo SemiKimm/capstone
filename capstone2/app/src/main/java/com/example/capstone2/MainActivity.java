@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -152,9 +154,22 @@ public class MainActivity extends AppCompatActivity {
                             if(success){
                                 ListAdapter adapter = new SimpleAdapter(
                                         MainActivity.this, mgetArrayList, R.layout.main_get_list_item,
-                                        new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostDate},
-                                        new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_date}
+                                        new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostDate, TAG_GetPostImg},
+                                        new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_date, R.id.get_imgView_list}
                                 );
+                                ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                                    @Override
+                                    public boolean setViewValue(View view, Object data, String textRepresentation) {
+                                        if(view.getId() == R.id.get_imgView_list) {
+                                            ImageView imageView = (ImageView) view;
+                                            String drawable = data.toString();
+                                            Glide.with(MainActivity.this).load(drawable).override(200,200)
+                                                    .error(R.drawable.defaultimg).into(imageView);
+                                            return true;
+                                        }
+                                        return false;
+                                    }
+                                });
                                 mgetlistView.setAdapter(adapter);
 
                             }else{
@@ -210,10 +225,24 @@ public class MainActivity extends AppCompatActivity {
                             if(success){
                                 ListAdapter adapter = new SimpleAdapter(
                                         MainActivity.this, mlostArrayList, R.layout.main_lost_list_item,
-                                        new String[]{TAG_LostPostTitle , TAG_LostPostCategory, TAG_LostPostLocal, TAG_LostPostDate},
-                                        new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_date}
+                                        new String[]{TAG_LostPostTitle , TAG_LostPostCategory, TAG_LostPostLocal, TAG_LostPostDate, TAG_LostPostImg},
+                                        new int[]{R.id.lost_textView_list_title, R.id.lost_textView_list_category, R.id.lost_textView_list_local, R.id.lost_textView_list_date, R.id.lost_imgView_list}
                                 );
+                                ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                                    @Override
+                                    public boolean setViewValue(View view, Object data, String textRepresentation) {
+                                        if(view.getId() == R.id.lost_imgView_list) {
+                                            ImageView imageView = (ImageView) view;
+                                            String drawable = data.toString();
+                                            Glide.with(MainActivity.this).load(drawable).override(200,200)
+                                                    .error(R.drawable.defaultimg).into(imageView);
+                                            return true;
+                                        }
+                                        return false;
+                                    }
+                                });
                                 mlostlistView.setAdapter(adapter);
+
                             }else{
                                 Toast.makeText(getApplicationContext(),"검색 조회 실패",Toast.LENGTH_SHORT).show();
                                 return;

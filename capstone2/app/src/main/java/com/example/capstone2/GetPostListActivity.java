@@ -6,12 +6,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -194,8 +197,21 @@ public class GetPostListActivity extends AppCompatActivity {
             ListAdapter adapter = new SimpleAdapter(
                     GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
                     new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
-                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_textView_list_img}
+                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_imgView_list}
             );
+            ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if(view.getId() == R.id.get_imgView_list) {
+                        ImageView imageView = (ImageView) view;
+                        String drawable = data.toString();
+                        Glide.with(GetPostListActivity.this).load(drawable).override(200,200)
+                                .error(R.drawable.defaultimg).into(imageView);
+                        return true;
+                    }
+                    return false;
+                }
+            });
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
