@@ -2,7 +2,7 @@ package com.example.capstone2;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.net.URI;
 
 public class GetPostActivity extends AppCompatActivity {
     private TextView postTitle,postCategory,postLocal,postPlace, postColor , postDate, postMoreInfo;
