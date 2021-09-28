@@ -2,35 +2,109 @@ package com.example.capstone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class GetPostDetail extends AppCompatActivity {
 
     private TextView tv_posterId;
+    private Button report_getpost_btn;
+    public static String login_id;
+
+    private TextView postTitle,postCategory,postLocal,postPlace, postColor , postDate, postMoreInfo;
+    ImageView img;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_post_detail);
 
-        tv_posterId = findViewById(R.id.posterId);
+        final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        login_id = sharedPreferences.getString("inputId","");
+
+        tv_posterId = findViewById(R.id.posterId); // 작성자 id
+
+        postTitle=findViewById(R.id.postTitle);
+        postCategory=findViewById(R.id.postCategory);
+        postLocal=findViewById(R.id.postLocal);
+        postPlace=findViewById(R.id.postPlace);
+        postColor=findViewById(R.id.postColor);
+        postDate=findViewById(R.id.postDate);
+        postMoreInfo=findViewById(R.id.postMoreInfo);
 
         Intent intent = getIntent();
-        String posterId = intent.getStringExtra("posterId");
+        String posterId = intent.getStringExtra("posterId"); // 게시물 작성자 id
+        String postId = intent.getStringExtra("postId"); // 게시물id
+        String postTitleData = intent.getStringExtra("postTitle");
+        String postCategoryData=intent.getExtras().getString("category");
+        String postLocalData=intent.getExtras().getString("local");
+        String postPlaceData=intent.getExtras().getString("place");
+        String postColorData=intent.getExtras().getString("color");
+        String postDateData=intent.getExtras().getString("date");
+        String postMoreInfoData=intent.getExtras().getString("moreInfo");
+        String postImgUriData=intent.getExtras().getString("imgUri");
 
-        tv_posterId.setText(posterId);
+        postTitle.setText(postTitleData);
+        postCategory.setText(postCategoryData);
+        postLocal.setText(postLocalData);
+        postPlace.setText(postPlaceData);
+        postColor.setText(postColorData);
+        postDate.setText(postDateData);
+        postMoreInfo.setText(postMoreInfoData);
 
+        img=findViewById(R.id.postImg);
+        Glide.with(getApplicationContext())
+                .load(postImgUriData)
+                .into(img);
+
+
+        tv_posterId.setText(posterId); // 작성자 id
         tv_posterId.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( GetPostDetail.this, MembersPageActivity.class );
-                intent.putExtra("posterId",posterId);
+                if(login_id.equals(posterId)){ // 본인이 작성한 글이면 본인 mypage로 이동
+                    Intent intent = new Intent( GetPostDetail.this, MypageActivity.class );
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(GetPostDetail.this, MembersPageActivity.class);
+                    intent.putExtra("posterId", posterId);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+
+        report_getpost_btn = findViewById(R.id.report_getpost);
+
+        // 본인이 작성한 게시물 신고 막기
+        if(login_id.equals(posterId)){
+            report_getpost_btn.setVisibility(View.GONE);
+        }
+
+
+        report_getpost_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( GetPostDetail.this, ReportPostActivity.class );
+                intent.putExtra("posterId", posterId); // 게시물 작성자 id
+                intent.putExtra("postId", postId); // 게시물 id
+                intent.putExtra("postTitle", postTitleData); // 게시물 제목
                 startActivity( intent );
             }
         });
+
 
     }
 }

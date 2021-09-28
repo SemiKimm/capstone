@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,11 +44,17 @@ public class GetPostListActivity extends AppCompatActivity {
     private static final String TAG_GetPostMoreInfo ="GetPostMoreInfoData";
     private static final String TAG_GetPostImg ="GetPostImgData";
     private static final String TAG_GetPostUserIdData ="GetPostUserIdData";
+    private static final String TAG_GetPostIdData ="GetPostIdData";
+    private static final String TAG_count = "count";
 
     private ImageView imgview;
     public TextView tv_posterId;
-
+    public static String imguri;
     private String posterId;
+    private View header;
+
+    private int icount;
+    private String count;
 
     //private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
@@ -81,9 +90,20 @@ public class GetPostListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int position, long id) {
                 HashMap<String, String> data = (HashMap<String, String>) adapterView.getItemAtPosition(position);
+                //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, GetPostListActivity.this, GetPostDetail.class);
                 Intent intent = new Intent(GetPostListActivity.this, GetPostDetail.class);
                 /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */
                 intent.putExtra("posterId", data.get(TAG_GetPostUserIdData));
+                intent.putExtra("postId", data.get(TAG_GetPostIdData));
+                intent.putExtra("postTitle", data.get(TAG_GetPostTitle));
+                intent.putExtra("category", data.get(TAG_GetPostCategory));
+                intent.putExtra("local", data.get(TAG_GetPostLocal));
+                intent.putExtra("place", data.get(TAG_GetPostPlace));
+                intent.putExtra("color", data.get(TAG_GetPostColor));
+                intent.putExtra("date", data.get(TAG_GetPostDate));
+                intent.putExtra("moreInfo", data.get(TAG_GetPostMoreInfo));
+                intent.putExtra("imgUri", data.get(TAG_GetPostImg));
+
                 startActivity(intent);
             }
         });
@@ -167,6 +187,7 @@ public class GetPostListActivity extends AppCompatActivity {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
 
+                String GetPostIdData = item.getString(TAG_GetPostIdData );
                 String GetPostTitleData = item.getString(TAG_GetPostTitle );
                 String GetPostCategoryData = item.getString(TAG_GetPostCategory );
                 String GetPostLocalData = item.getString(TAG_GetPostLocal );
@@ -176,10 +197,15 @@ public class GetPostListActivity extends AppCompatActivity {
                 String GetPostMoreInfoData = item.getString(TAG_GetPostMoreInfo );
                 String GetPostImgData = item.getString(TAG_GetPostImg );
                 String GetPostUserIdData = item.getString(TAG_GetPostUserIdData );
+                count = item.getString(TAG_count);
+
+                imguri = GetPostImgData;
+
 
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
+                hashMap.put(TAG_GetPostIdData, GetPostIdData);
                 hashMap.put(TAG_GetPostTitle, GetPostTitleData);
                 hashMap.put(TAG_GetPostCategory, GetPostCategoryData);
                 hashMap.put(TAG_GetPostLocal, GetPostLocalData);
@@ -189,17 +215,38 @@ public class GetPostListActivity extends AppCompatActivity {
                 hashMap.put(TAG_GetPostMoreInfo, GetPostMoreInfoData);
                 hashMap.put(TAG_GetPostImg, GetPostImgData);
                 hashMap.put(TAG_GetPostUserIdData, GetPostUserIdData);
+                hashMap.put(TAG_count, count);
 
                 posterId = GetPostUserIdData;
-
-                mArrayList.add(hashMap);
+                icount = Integer.parseInt(count);
+                if(count.equals("0")) {
+                    mArrayList.add(hashMap);
+                }
             }
-            ListAdapter adapter = new SimpleAdapter(
-                    GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
-                    new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg, TAG_GetPostUserIdData},
-                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_textView_list_img, R.id.get_textView_list_id}
-            );
+
+
+                ListAdapter adapter = new SimpleAdapter(
+                        GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
+                        new String[]{ TAG_GetPostTitle, TAG_GetPostCategory, TAG_GetPostLocal, TAG_GetPostPlace, TAG_GetPostDate, TAG_GetPostColor, TAG_GetPostMoreInfo/*, TAG_GetPostImg, TAG_GetPostUserIdData*/},
+                        new int[]{ R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info/*, R.id.get_textView_list_img, R.id.get_textView_list_id*/}
+                );
+            /*
+
+            header = getLayoutInflater().inflate(R.layout.get_post_list_item, null, false);
+            imgview=(ImageView) header. findViewById(R.id.get_imgView_list);
+
+                Glide.with(getApplicationContext())
+                        .load(imguri)
+                        .into(imgview);
+            imgview.setImageDrawable(mlistView.);
+            */
+
+
             mlistView.setAdapter(adapter);
+
+
+
+
 
 
         } catch (JSONException e) {

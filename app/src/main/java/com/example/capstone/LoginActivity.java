@@ -68,23 +68,40 @@ public class LoginActivity extends AppCompatActivity {
 
                                 final String login_id = jsonObject.getString( "login_id" );
                                 String user_name = jsonObject.getString( "user_name" );
+                                int count = Integer.parseInt(jsonObject.getString("count"));
+                                String scount = Integer.toString(count);
 
-                                // sharedprefernece에 정보 저장
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("inputId", login_id);
-                                editor.putString(getResources().getString(R.string.prefLoginState), "loggedin");
-                                editor.putString(getResources().getString(R.string.prefAutoLoginState), "autoLogin");
-                                editor.commit();
+                                if(count >= 5){ //신고횟수 파악
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString(getResources().getString(R.string.prefAutoLoginState),"non-autoLogin");
+                                    editor.putString(getResources().getString(R.string.prefLoginState),"loggedout");
+                                    editor.commit();
 
-                                // 로그인 성공 메시지 출력
-                                Toast.makeText(getApplicationContext(), String.format("%s님 로그인에 성공하였습니다.", user_name),Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent( LoginActivity.this, MypageActivity.class );
-                                startActivity( intent );
+                                    // 로그인 실패 메시지 출력
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    dialog = builder.setMessage(String.format("신고 %s회 누적으로 사용이 제한되었습니다.\n문의 : kce6064@naver.com", scount)).setNegativeButton("확인", null).create();
+                                    dialog.show();
+                                    return;
+                                } else {
+
+                                    // sharedprefernece에 정보 저장
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("inputId", login_id);
+                                    editor.putString(getResources().getString(R.string.prefLoginState), "loggedin");
+                                    editor.putString(getResources().getString(R.string.prefAutoLoginState), "autoLogin");
+                                    editor.commit();
+
+                                    // 로그인 성공 메시지 출력
+                                    Toast.makeText(getApplicationContext(), String.format("%s님 로그인에 성공하였습니다.", user_name), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, MypageActivity.class);
+                                    startActivity(intent);
+                                }
 
                             } else {// 로그인 실패시
                                 // sharedprefernece에 정보 저장
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(getResources().getString(R.string.prefLoginState), "loggedout");
+                                editor.putString(getResources().getString(R.string.prefAutoLoginState),"non-autoLogin");
                                 editor.commit();
 
                                 // 로그인 실패 메시지 출력

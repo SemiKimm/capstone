@@ -11,13 +11,14 @@ public class GetPostingRequest extends StringRequest{
     //서버 URL 설정(php 파일 연동)
     final static private String URL = "http://myapp.dothome.co.kr/GetPosting.php";
     private Map<String, String> map;
-    public GetPostingRequest(String GetPostTitleData, String GetPostPlaceData
+    public GetPostingRequest(String GetPostIdData, String GetPostTitleData, String GetPostPlaceData
             , String GetPostDateData, String GetPostMoreInfoData, String GetPostColorData, String GetPostImgData
             , String GetPostCategoryData, String GetPostLocalData, String GetPostUserIdData,
                              Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
+        map.put("GetPostIdData", GetPostIdData);
         map.put("GetPostTitleData", GetPostTitleData);
         map.put("GetPostPlaceData", GetPostPlaceData);
         map.put("GetPostDateData", GetPostDateData);
