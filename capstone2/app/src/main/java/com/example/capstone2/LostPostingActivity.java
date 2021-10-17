@@ -1,13 +1,21 @@
 package com.example.capstone2;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.textclassifier.ConversationActions;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,22 +30,40 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
-public class LostPostingActivity extends AppCompatActivity {
+
+public class LostPostingActivity extends AppCompatActivity{
     private EditText postingTitle, placeData, moreInfo;
     private TextView date, color, category, local;
     private AlertDialog inputErrorDialog;
     private Button imgButton;
     private ImageView img;
     private Uri urii;
+    private String category_topic;
     //사진 요청 코드
     private static final int REQUEST_CODE=0;
+
+    SharedPreferences sharedPreferences;
 
     //    String[] colorItems = getResources().getStringArray(R.array.colorSpinnerArray); --이거 오류 왜날까...왜지..? 뭐가 나는거지..?
     String[] colorItems = {"선택","검정색","흰색","빨강색","연두색","파랑색 ","노랑색","핑크색","보라색","회색","갈색"};
@@ -57,6 +83,7 @@ public class LostPostingActivity extends AppCompatActivity {
                 }
             };
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +100,10 @@ public class LostPostingActivity extends AppCompatActivity {
             Intent intent=new Intent(LostPostingActivity.this, SelectPostingActivity.class);
             startActivity(intent);
         });
+
+        //사용자 토큰 가져오기
+        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("user_token","");
 
         //img입력 처리
         img=findViewById(R.id.LostImgData);
@@ -205,7 +236,67 @@ public class LostPostingActivity extends AppCompatActivity {
                     ,  LostPostDateData,  LostPostMoreInfoData, LostPostColorData, LostPostImgData, responseListener);
             RequestQueue queue = Volley.newRequestQueue( LostPostingActivity.this );
             queue.add( lostPostingRequest );
+
+            switch (LostPostCategoryData){
+                case "의류":
+                    category_topic= "cloth";
+                    Log.e("토큰확인",token);
+                    sendPostToFCM("fDtaze-7QVyQm6PC9Z8naM:APA91bE1-n7gbNGB7RR_cWYmxi5poAEaBFZhAnZeVkzHsC4YPDT9MWq0IFsO9HcCNiKlsnAwF78EzfQj8FYkavXPHFP_HDINdsH3XXTXOOiZSiBrPipFch0J8r1gi1Lzw9iWF92bEkxG",category_topic);
+                    break;
+                case "가방":
+                    category_topic= "bag";
+                    sendPostToFCM("fDtaze-7QVyQm6PC9Z8naM:APA91bE1-n7gbNGB7RR_cWYmxi5poAEaBFZhAnZeVkzHsC4YPDT9MWq0IFsO9HcCNiKlsnAwF78EzfQj8FYkavXPHFP_HDINdsH3XXTXOOiZSiBrPipFch0J8r1gi1Lzw9iWF92bEkxG",category_topic);
+                    break;
+                case "악세서리":
+                    break;
+                case "신발":
+                    break;
+                case "시계":
+                    break;
+            }
         });
+    }
+
+
+    private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
+    private static final String SERVER_KEY = "AAAAsqWL49A:APA91bGnwOYNa7nKfbN0YKVzlJHzjEAzM62gbbOGvLTAclAdRAZm8HIzgW0zfIPUj0ckc64BUnVp1BxAcmLw5Lx2dMTnO9MUvqpZ7VnK0cbiZcVIDuTIRYRcCtFio4eh-cPFXJwR9Vlm";
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void sendPostToFCM(final String token,final String category) {
+        String message = category;
+            try {
+                // FMC 메시지 생성 start
+                JSONObject root = new JSONObject();
+                root.put("to", token);
+                JSONObject notification = new JSONObject();
+                notification.put("title", getString(R.string.app_name));
+                notification.put("body", message);
+                root.put("notification", notification);
+                root.put("topic",category);
+                Log.e("작동 확인0",String.valueOf(root));
+                //발송
+                final MediaType mediaType = MediaType.parse("application/json");
+                Log.e("확인0", String.valueOf(mediaType));
+                OkHttpClient httpClient = new OkHttpClient();
+                Log.e("확인1", String.valueOf(mediaType));
+                Request request = new Request.Builder().url("https://fcm.googleapis.com/fcm/send")
+                        .addHeader("Content-Type", "application/json; UTF-8")
+                        .addHeader("Authorization", "key=" + SERVER_KEY)
+                        .post(RequestBody.create(mediaType, root.toString())).build();
+                Log.e("확인2", String.valueOf(request));
+                httpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e("error",e.toString());
+                    }
+                    @Override
+                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                        Log.e("response body",response.body().string());
+                        Log.e("notification response ", String.valueOf(response));
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     //갤러리에서 이미지 넣기

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportDetailActivity">
+    <TextView
+        android:id="@+id/reason_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="게시물"/>
+    <TextView
+        android:id="@+id/postTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/reason_title1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:text="text"/>
+    <TextView
+        android:id="@+id/reason_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/postTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:text="의 신고 사유를 자세하게 알려주세요."/>
+    <TextView
+        android:id="@+id/reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/reason_title"
+        android:text="text"/>
+    <EditText
+        android:id="@+id/ed_moreInfo"
+        android:layout_width="375dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/reason"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="top" />
+    <Button
+        android:id="@+id/sendReport"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ed_moreInfo"
+        android:layout_marginLeft="20dp"
+        android:text="신고 완료"/>
+</RelativeLayout>

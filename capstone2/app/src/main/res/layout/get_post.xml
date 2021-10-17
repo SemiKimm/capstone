@@ -23,6 +23,12 @@
                     android:text="습득물"
                     android:textSize="20dp"
                     android:padding="10dp"/>
+                <TextView
+                    android:id="@+id/posterId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="text"/>
                 <LinearLayout
                     android:id="@+id/titleLayout"
                     android:layout_width="match_parent"
@@ -176,7 +182,7 @@
                         android:layout_gravity="right"
                         android:text='채팅' />
                     <Button
-                        android:id="@+id/postDeclarationBtn"
+                        android:id="@+id/report_getpost"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text='신고' />

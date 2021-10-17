@@ -4,6 +4,7 @@
     package="com.example.capstone2">
     <!--인터넷 권한 선언-->
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Capstone2"
-        android:usesCleartextTraffic="true">
-<!--        tools:targetApi="m"-->
-<!--        >-->
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -38,5 +39,25 @@
         <activity android:name=".GetPostActivity"/>
         <activity android:name=".SearchGetPostListActivity"/>
         <activity android:name=".CategoryLostListActivity"/>
+
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".MypageActivity"/>
+        <activity android:name=".MembersPageActivity"/>
+        <activity android:name=".ReportActivity"/>
+        <activity android:name=".ReportDetailActivity"/>
+        <activity android:name=".ReportPostActivity"/>
+        <activity android:name=".ReportPostDetailActivity"/>
+
+        <activity android:name=".PushGetCheckActivity"/>
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:stopWithTask="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 </manifest>
