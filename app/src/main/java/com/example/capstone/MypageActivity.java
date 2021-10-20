@@ -2,13 +2,17 @@ package com.example.capstone;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -24,6 +28,8 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +62,9 @@ public class MypageActivity extends AppCompatActivity {
     private static final String TAG_count = "count";
     private String count;
     private String posterId;
+    private int icount=0;
+
+    public static String drawable, imguri;
 
     private TextView tv_name, tv_id;
     public static String user_name, login_id, session, user_phone, login_pwd, profile_img;
@@ -74,10 +83,12 @@ public class MypageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
+
         final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
         final Button logout = (Button) findViewById(R.id.logoutButton);
         final Button edit_profile = (Button) findViewById((R.id.edit_profile));
+        final Button badge = (Button) findViewById(R.id.badge_list);
 
 
         tv_name = findViewById(R.id.tv_name);
@@ -130,6 +141,19 @@ public class MypageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // 배지 보기 버튼 클릭 시 수행
+        badge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // editprofile activity로 값 넘겨주기
+                Intent intent = new Intent(MypageActivity.this, BadgeActivity.class);
+                intent.putExtra("login_id", sharedPreferences.getString("inputId",""));
+                intent.putExtra("postcount", icount);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -217,6 +241,8 @@ public class MypageActivity extends AppCompatActivity {
                     .into(img);
 
 
+            Log.e("name", user_name);
+
         }
     }
 
@@ -256,6 +282,9 @@ public class MypageActivity extends AppCompatActivity {
             else {
                 mJsonString = result;
                 showResult();
+                //tv_name.setText(drawable);
+                //Log.e("muri", imguri);
+
             }
         }
 
@@ -286,9 +315,10 @@ public class MypageActivity extends AppCompatActivity {
                 String GetPostMoreInfoData = item.getString(TAG_GetPostMoreInfo );
                 String GetPostImgData = item.getString(TAG_GetPostImg );
                 String GetPostUserIdData = item.getString(TAG_GetPostUserIdData );
-                count = item.getString(TAG_count);
+                count = item.getString(TAG_count); // 글 작성 횟수
+                icount = Integer.parseInt(count);
 
-                //imguri = GetPostImgData;
+                imguri = GetPostImgData;
 
 
 
@@ -307,21 +337,36 @@ public class MypageActivity extends AppCompatActivity {
                 hashMap.put(TAG_count, count);
 
                 posterId = GetPostUserIdData;
-                //icount = Integer.parseInt(count);
-                if(count.equals("0")) {
+
                     mArrayList.add(hashMap);
-                }
             }
 
 
             ListAdapter adapter = new SimpleAdapter(
                     MypageActivity.this, mArrayList, R.layout.get_post_list_item,
-                    new String[]{ TAG_GetPostTitle, TAG_GetPostCategory, TAG_GetPostLocal, TAG_GetPostPlace, TAG_GetPostDate, TAG_GetPostColor, TAG_GetPostMoreInfo/*, TAG_GetPostImg, TAG_GetPostUserIdData*/},
-                    new int[]{ R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info/*, R.id.get_textView_list_img, R.id.get_textView_list_id*/}
+                    new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
+                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_imgView_list}
             );
+            ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if(view.getId() == R.id.get_imgView_list) {
+                        ImageView imageView = (ImageView) view;
 
+                         drawable = data.toString();
+                        //String drawable = String.valueOf(data);
+                        GlideApp.with(MypageActivity.this).load(drawable)
+                                .into(imageView);
+
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
             mlistView.setAdapter(adapter);
+
+
 
 
 
@@ -332,6 +377,7 @@ public class MypageActivity extends AppCompatActivity {
             Log.d(TAG, "showResult : ", e);
         }
     }
+
 
 
 

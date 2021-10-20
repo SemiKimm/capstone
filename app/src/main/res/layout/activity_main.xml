@@ -30,5 +30,13 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true" />
 
+    <Button
+        android:id="@+id/chatList"
+        android:layout_width="100dp"
+        android:layout_height="62dp"
+        android:text="chatList"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/GetPostList" />
+
 
 </RelativeLayout>

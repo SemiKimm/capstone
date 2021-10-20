@@ -72,24 +72,15 @@
                         android:layout_below="@id/welcome"
                         android:layout_marginTop="65dp" />
 
-                    <ImageView
-                        android:id="@+id/user_badge"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_below="@id/user_profile"
-                        android:layout_marginTop="30dp"
-                        android:src="@drawable/badge" />
 
-                    <ImageView
-                        android:id="@+id/user_reliability"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                    <Button
+                        android:id="@+id/badge_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/user_profile"
-                        android:layout_toRightOf="@id/user_badge"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/reliability" />
+                        android:text="배지 보기"/>
 
                     <Button
                         android:id="@+id/logoutButton"

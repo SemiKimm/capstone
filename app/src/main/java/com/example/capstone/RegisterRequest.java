@@ -1,8 +1,9 @@
 package com.example.capstone;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.error.AuthFailureError;
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.request.StringRequest;
+//import com.android.volley.toolbox.StringRequest;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

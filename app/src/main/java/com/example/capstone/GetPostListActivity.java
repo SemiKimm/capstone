@@ -2,6 +2,7 @@ package com.example.capstone;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,7 @@ public class GetPostListActivity extends AppCompatActivity {
 
     private ImageView imgview;
     public TextView tv_posterId;
-    public static String imguri;
+    public static String imguri, drawable;
     private String posterId;
     private View header;
 
@@ -200,6 +201,7 @@ public class GetPostListActivity extends AppCompatActivity {
                 count = item.getString(TAG_count);
 
                 imguri = GetPostImgData;
+                Log.e("list_bitmap", GetPostImgData);
 
 
 
@@ -218,29 +220,64 @@ public class GetPostListActivity extends AppCompatActivity {
                 hashMap.put(TAG_count, count);
 
                 posterId = GetPostUserIdData;
-                icount = Integer.parseInt(count);
+                icount = Integer.parseInt(count); // 신고 횟수가 0인 글만 보이기
                 if(count.equals("0")) {
                     mArrayList.add(hashMap);
                 }
             }
 
-
+/*
                 ListAdapter adapter = new SimpleAdapter(
                         GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
-                        new String[]{ TAG_GetPostTitle, TAG_GetPostCategory, TAG_GetPostLocal, TAG_GetPostPlace, TAG_GetPostDate, TAG_GetPostColor, TAG_GetPostMoreInfo/*, TAG_GetPostImg, TAG_GetPostUserIdData*/},
-                        new int[]{ R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info/*, R.id.get_textView_list_img, R.id.get_textView_list_id*/}
+                        new String[]{ TAG_GetPostTitle, TAG_GetPostCategory, TAG_GetPostLocal, TAG_GetPostPlace, TAG_GetPostDate, TAG_GetPostColor, TAG_GetPostMoreInfo/*, TAG_GetPostImg/*, TAG_GetPostUserIdData},
+                        new int[]{ R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info/*, R.id.get_imgView_list/*, R.id.get_textView_list_id}
                 );
+
             /*
+            ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if(view.getId() == R.id.get_imgView_list) {
+                        ImageView imageView = (ImageView) view;
+                        String drawable = data.toString();
+                        Glide.with(GetPostListActivity.this).load(drawable).override(200,200)
+                                .error(R.drawable.defaultimg).into(imageView);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+*/
 
-            header = getLayoutInflater().inflate(R.layout.get_post_list_item, null, false);
-            imgview=(ImageView) header. findViewById(R.id.get_imgView_list);
 
-                Glide.with(getApplicationContext())
-                        .load(imguri)
-                        .into(imgview);
-            imgview.setImageDrawable(mlistView.);
-            */
+            ListAdapter adapter = new SimpleAdapter(
+                    GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,
+                    new String[]{TAG_GetPostTitle ,TAG_GetPostCategory ,TAG_GetPostLocal, TAG_GetPostPlace , TAG_GetPostDate, TAG_GetPostColor,  TAG_GetPostMoreInfo, TAG_GetPostImg},
+                    new int[]{R.id.get_textView_list_title, R.id.get_textView_list_category, R.id.get_textView_list_local, R.id.get_textView_list_place, R.id.get_textView_list_date, R.id.get_textView_list_color, R.id.get_textView_list_more_info, R.id.get_imgView_list}
+            );
+            ((SimpleAdapter) adapter).setViewBinder(new SimpleAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if(view.getId() == R.id.get_imgView_list) {
+                        ImageView imageView = (ImageView) view;
 
+                        /*
+                        drawable = data.toString();
+                        Glide.with(GetPostListActivity.this).load(drawable)
+                                .into(imageView);
+
+                         */
+
+                    /*
+                    Drawable drawble = (Drawable) data;
+                    imageView.setImageDrawable(drawble)
+                    ;
+                     */
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
             mlistView.setAdapter(adapter);
 
