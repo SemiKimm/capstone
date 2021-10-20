@@ -103,7 +103,7 @@ public class LostPostingActivity extends AppCompatActivity{
 
         //사용자 토큰 가져오기
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("user_token","");
+        String token = sharedPreferences.getString("userToken","");
 
         //img입력 처리
         img=findViewById(R.id.LostImgData);
@@ -241,11 +241,11 @@ public class LostPostingActivity extends AppCompatActivity{
                 case "의류":
                     category_topic= "cloth";
                     Log.e("토큰확인",token);
-                    sendPostToFCM("fDtaze-7QVyQm6PC9Z8naM:APA91bE1-n7gbNGB7RR_cWYmxi5poAEaBFZhAnZeVkzHsC4YPDT9MWq0IFsO9HcCNiKlsnAwF78EzfQj8FYkavXPHFP_HDINdsH3XXTXOOiZSiBrPipFch0J8r1gi1Lzw9iWF92bEkxG",category_topic);
+                    sendPostToFCM(token,category_topic);
                     break;
                 case "가방":
                     category_topic= "bag";
-                    sendPostToFCM("fDtaze-7QVyQm6PC9Z8naM:APA91bE1-n7gbNGB7RR_cWYmxi5poAEaBFZhAnZeVkzHsC4YPDT9MWq0IFsO9HcCNiKlsnAwF78EzfQj8FYkavXPHFP_HDINdsH3XXTXOOiZSiBrPipFch0J8r1gi1Lzw9iWF92bEkxG",category_topic);
+                    sendPostToFCM(token,category_topic);
                     break;
                 case "악세서리":
                     break;
@@ -261,7 +261,7 @@ public class LostPostingActivity extends AppCompatActivity{
     private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     private static final String SERVER_KEY = "AAAAsqWL49A:APA91bGnwOYNa7nKfbN0YKVzlJHzjEAzM62gbbOGvLTAclAdRAZm8HIzgW0zfIPUj0ckc64BUnVp1BxAcmLw5Lx2dMTnO9MUvqpZ7VnK0cbiZcVIDuTIRYRcCtFio4eh-cPFXJwR9Vlm";
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void sendPostToFCM(final String token,final String category) {
+    private void sendPostToFCM(final String token,final String category){
         String message = category;
             try {
                 // FMC 메시지 생성 start

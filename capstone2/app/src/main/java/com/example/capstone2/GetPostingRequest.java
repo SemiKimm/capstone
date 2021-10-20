@@ -11,12 +11,13 @@ public class GetPostingRequest extends StringRequest{
     //서버 URL 설정(php 파일 연동)
     final static private String URL = "http://jamong.ivyro.net/GetPosting.php";
     private Map<String, String> map;
-    public GetPostingRequest(String GetPostTitleData, String GetPostCategoryData, String GetPostLocalData, String GetPostPlaceData
+    public GetPostingRequest(String GetPostIdData, String GetPostTitleData, String GetPostCategoryData, String GetPostLocalData, String GetPostPlaceData
             , String GetPostDateData, String GetPostMoreInfoData, String GetPostColorData, String GetPostImgData
-            , Response.Listener<String> listener) {
+            , String GetPostUserIdData, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
+        map.put("GetPostIdData", GetPostIdData);
         map.put("GetPostTitleData", GetPostTitleData);
         map.put("GetPostCategoryData", GetPostCategoryData);
         map.put("GetPostLocalData", GetPostLocalData);
@@ -25,6 +26,7 @@ public class GetPostingRequest extends StringRequest{
         map.put("GetPostMoreInfoData", GetPostMoreInfoData);
         map.put("GetPostColorData", GetPostColorData);
         map.put("GetPostImgData", GetPostImgData);
+        map.put("GetPostUserIdData", GetPostUserIdData);
     }
 
     @Override

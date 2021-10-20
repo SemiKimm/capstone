@@ -1,6 +1,8 @@
 package com.example.capstone2;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class GetPostingActivity extends AppCompatActivity {
@@ -36,6 +39,10 @@ public class GetPostingActivity extends AppCompatActivity {
     private Button imgButton;
     private ImageView img;
     private Uri urii;
+
+    private String GetPostId;
+    public static String login_id;
+
     //사진 요청 코드
     private static final int REQUEST_CODE=0;
 
@@ -74,6 +81,10 @@ public class GetPostingActivity extends AppCompatActivity {
             Intent intent=new Intent(GetPostingActivity.this, SelectPostingActivity.class);
             startActivity(intent);
         });
+
+        // 로그인 아이디 찾아주기
+        final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        login_id = sharedPreferences.getString("inputId","");
 
         //img입력 처리
         img=findViewById(R.id.GetImgData);
@@ -160,6 +171,7 @@ public class GetPostingActivity extends AppCompatActivity {
         color = findViewById(R.id.GetColorData);
         category = findViewById(R.id.getPostingCategoryData);
         local = findViewById(R.id.getPostingLocalData);
+        GetPostId = Integer.toString(getRand()); // 게시글id
 
         Button inputButton=findViewById(R.id.inputBtn);
 
@@ -172,6 +184,8 @@ public class GetPostingActivity extends AppCompatActivity {
             String GetPostImgData=urii.toString();
             String GetPostCategoryData=category.getText().toString();
             String GetPostLocalData=local.getText().toString();
+            String GetPostUserIdData= login_id; // 로그인 id 데이터
+            String GetPostIdData = GetPostId; // 게시물 id
             Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
             if (GetPostTitleData.equals("") || GetPostPlaceData.equals("") || GetPostImgData.equals("")) {
@@ -202,9 +216,9 @@ public class GetPostingActivity extends AppCompatActivity {
                 }
             };
             //서버로 Volley 이용해서 요청
-            GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostTitleData, GetPostCategoryData,GetPostLocalData,  GetPostPlaceData
+            GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostIdData, GetPostTitleData, GetPostCategoryData,GetPostLocalData,  GetPostPlaceData
                     ,  GetPostDateData,  GetPostMoreInfoData, GetPostColorData, GetPostImgData
-                    ,responseListener);
+                    , GetPostUserIdData, responseListener);
             RequestQueue queue = Volley.newRequestQueue( GetPostingActivity.this );
             queue.add( getPostingRequest );
         });
@@ -227,5 +241,14 @@ public class GetPostingActivity extends AppCompatActivity {
                 //취소시 호출할 행동
             }
         }
+    }
+    // 게시물 id 8자리 난수
+    public static int getRand(){
+        Random rand = new Random();
+        String rst = Integer.toString(rand.nextInt(8)+1);
+        for(int i=0; i<7; i++){
+            rst += Integer.toString(rand.nextInt(9));
+        }
+        return Integer.parseInt(rst);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -40,8 +41,16 @@ public class GetPostListActivity extends AppCompatActivity {
     private static final String TAG_GetPostColor ="GetPostColorData";
     private static final String TAG_GetPostMoreInfo ="GetPostMoreInfoData";
     private static final String TAG_GetPostImg ="GetPostImgData";
+    private static final String TAG_GetPostUserIdData ="GetPostUserIdData";
+    private static final String TAG_GetPostIdData ="GetPostIdData";
+    private static final String TAG_count = "count";
 
     private ImageView imgview;
+    public TextView tv_posterId;
+    private String posterId;
+
+    private int icount;
+    private String count;
 
     //private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
@@ -76,6 +85,8 @@ public class GetPostListActivity extends AppCompatActivity {
         mlistView.setOnItemClickListener((AdapterView.OnItemClickListener) (adapterView, view, index, l) -> {
             HashMap<String,String> data =(HashMap<String,String>) adapterView.getItemAtPosition(index);
             Log.e("itemdata",String.valueOf(data));
+            String posterId = data.get(TAG_GetPostUserIdData);
+            String postId = data.get(TAG_GetPostIdData);
             String title=data.get(TAG_GetPostTitle);
             String category=data.get(TAG_GetPostCategory);
             String local = data.get(TAG_GetPostLocal);
@@ -85,6 +96,8 @@ public class GetPostListActivity extends AppCompatActivity {
             String moreInfo=data.get(TAG_GetPostMoreInfo);
             String imgUri=data.get(TAG_GetPostImg);
             Intent intent = new Intent(GetPostListActivity.this,GetPostActivity.class);
+            intent.putExtra("posterId", posterId);
+            intent.putExtra("postId", postId);
             intent.putExtra("title",title);
             intent.putExtra("category",category);
             intent.putExtra("local",local);
@@ -169,21 +182,31 @@ public class GetPostListActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            Log.e("여기",String.valueOf(jsonArray));
 
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-
+                Log.e("여기",String.valueOf(item));
+                String GetPostIdData = item.getString(TAG_GetPostIdData );
+                Log.e("GetPostIdData",String.valueOf(GetPostIdData));
                 String GetPostTitleData = item.getString(TAG_GetPostTitle );
                 String GetPostCategoryData = item.getString(TAG_GetPostCategory );
                 String GetPostLocalData = item.getString(TAG_GetPostLocal );
+                Log.e("GetPostLocalData",String.valueOf(GetPostLocalData));
                 String GetPostPlaceData = item.getString(TAG_GetPostPlace );
                 String GetPostDateData = item.getString(TAG_GetPostDate );
                 String GetPostColorData = item.getString(TAG_GetPostColor );
                 String GetPostMoreInfoData = item.getString(TAG_GetPostMoreInfo );
+                Log.e("TAG_GetPostMoreInfo",String.valueOf(GetPostMoreInfoData));
                 String GetPostImgData = item.getString(TAG_GetPostImg );
-
+                Log.e("GetPostImgData",String.valueOf(GetPostImgData));
+                String GetPostUserIdData = item.getString(TAG_GetPostUserIdData );
+                Log.e("GetPostUserIdData",String.valueOf(GetPostUserIdData));
+                count = item.getString(TAG_count);
+                Log.e("여기3",String.valueOf(count));
                 HashMap<String,String> hashMap = new HashMap<>();
 
+                hashMap.put(TAG_GetPostIdData, GetPostIdData);
                 hashMap.put(TAG_GetPostTitle, GetPostTitleData);
                 hashMap.put(TAG_GetPostCategory, GetPostCategoryData);
                 hashMap.put(TAG_GetPostLocal, GetPostLocalData);
@@ -192,7 +215,17 @@ public class GetPostListActivity extends AppCompatActivity {
                 hashMap.put(TAG_GetPostColor, GetPostColorData);
                 hashMap.put(TAG_GetPostMoreInfo, GetPostMoreInfoData);
                 hashMap.put(TAG_GetPostImg, GetPostImgData);
+                hashMap.put(TAG_GetPostUserIdData, GetPostUserIdData);
+                hashMap.put(TAG_count, count);
+
+                posterId = GetPostUserIdData;
+                //icount = Integer.parseInt(count);
                 mArrayList.add(hashMap);
+                Log.e("여기3",String.valueOf(mArrayList));
+//                if(count==null) {
+//                    mArrayList.add(hashMap);
+//                    Log.e("여기2",String.valueOf(mArrayList));
+//                }
             }
             ListAdapter adapter = new SimpleAdapter(
                     GetPostListActivity.this, mArrayList, R.layout.get_post_list_item,

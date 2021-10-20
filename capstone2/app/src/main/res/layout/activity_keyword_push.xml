@@ -18,43 +18,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:text="키워드 선택"
                     android:textSize="20dp"
                     android:textAlignment="center"/>
-                <Button
-                    android:id="@+id/cloth"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="의류" />
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="키워드 입력"/>
+                    <Button
+                        android:id="@+id/listPut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="입력" />
+                </LinearLayout>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
                 <Button
-                    android:id="@+id/bag"
+                    android:id="@+id/insert"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="가방" />
-                <Button
-                    android:id="@+id/accessory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="악세서리" />
-                <Button
-                    android:id="@+id/shoes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="신발" />
-                <Button
-                    android:id="@+id/watch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="시계" />
+                    android:text="구독" />
+
             </LinearLayout>
         </ScrollView>
         <LinearLayout
