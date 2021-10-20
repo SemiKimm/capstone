@@ -1,147 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MypageActivity">
+    <ImageView
+        android:id="@+id/user_profile"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="120dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:id="@+id/info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_toRightOf="@id/user_profile"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="120dp" />
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="님, 환영합니다!"
+        android:layout_toRightOf="@id/tv_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="120dp" />
+    <TextView
+        android:id="@+id/tv_session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@id/tv_name"
+        android:layout_toRightOf="@id/user_profile"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@id/tv_session"
+        android:layout_toRightOf="@id/user_profile"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp" />
 
-            <ImageView
-                android:id="@+id/user_profile"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="120dp" />
+    <Button
+        android:id="@+id/edit_profile"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="프로필 편집"
+        android:layout_toRightOf="@id/user_profile"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/tv_session"
+        android:layout_marginTop="65dp" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:layout_toRightOf="@id/user_profile"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="120dp" />
-
-            <TextView
-                android:id="@+id/welcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="님, 환영합니다!"
-                android:layout_toRightOf="@id/tv_name"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="120dp" />
-
-            <TextView
-                android:id="@+id/text_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
-                android:layout_toRightOf="@id/user_profile"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:text="아이디"/>
-
-            <TextView
-                android:id="@+id/tv_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:layout_below="@id/welcome"
-                android:layout_toRightOf="@id/text_id"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp" />
-
-            <Button
-                android:id="@+id/edit_profile"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text="프로필 편집"
-                android:layout_toRightOf="@id/user_profile"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@id/welcome"
-                android:layout_marginTop="65dp" />
-
-            <ImageView
-                android:id="@+id/user_badge"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@id/user_profile"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/defaultimg" />
-
-            <ImageView
-                android:id="@+id/user_reliability"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_below="@id/user_profile"
-                android:layout_toRightOf="@id/user_badge"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/defaultimg" />
-
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="로그아웃"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/info">
-
-            <ListView
-                android:id="@+id/my_post_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/list">
-            <Button
-                android:id="@+id/searchBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="search" />
-            <Button
-                android:id="@+id/postingBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="posting" />
-            <Button
-                android:id="@+id/homeBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="home" />
-            <Button
-                android:id="@+id/chatBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="chat" />
-            <Button
-                android:id="@+id/myPageBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="my" />
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+    <ImageView
+        android:id="@+id/user_badge"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/user_profile"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/defaultimg" />
+    <ImageView
+        android:id="@+id/user_reliability"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/user_profile"
+        android:layout_toRightOf="@id/user_badge"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/defaultimg" />
+    <TextView
+        android:id="@+id/postList"
+        android:layout_width="350dp"
+        android:layout_height="160dp"
+        android:text="작성글 목록"
+        android:layout_below="@id/user_reliability"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="60dp" />
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"/>
+</RelativeLayout>

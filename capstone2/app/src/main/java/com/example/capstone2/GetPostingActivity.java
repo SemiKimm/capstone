@@ -1,13 +1,16 @@
 package com.example.capstone2;
+
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,8 +23,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
+
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
@@ -31,8 +42,8 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.Random;
 
-
 public class GetPostingActivity extends AppCompatActivity {
+
     private EditText postingTitle, placeData, moreInfo;
     private TextView date, color, category, local;
     private AlertDialog inputErrorDialog;
@@ -224,7 +235,7 @@ public class GetPostingActivity extends AppCompatActivity {
         });
     }
 
-    //갤러리에서 이미지 넣기
+    //갤러리에서 이미지 넣기 기존꺼
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQUEST_CODE){

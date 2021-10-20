@@ -1,5 +1,6 @@
 package com.example.capstone2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -10,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +49,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+
     String[] localItems = {"지역 선택", "서울특별시", "강원도", "경기도", "경상남도", "경상북도", "광주광역시", "대구광역시"
             , "대전광역시", "부산광역시", "울산광역시", "인천광역시", "전라남도", "전라북도", "충청남도", "충청북도"
             , "제주특별자치도", "세종특별자치시", "기타"};
@@ -87,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
@@ -158,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        Button chatButton = findViewById(R.id.chatBtn);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChatListActivity.class);
+                startActivity(intent);
+            }
+        });
         Button postingButton=findViewById(R.id.postingBtn);
         postingButton.setOnClickListener(view -> {
             Intent intent=new Intent(MainActivity.this, SelectPostingActivity.class);

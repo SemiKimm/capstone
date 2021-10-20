@@ -35,6 +35,8 @@ public class GetPostActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+
         final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         login_id = sharedPreferences.getString("inputId","");
         tv_posterId = findViewById(R.id.posterId); // 작성자 id
@@ -82,6 +84,17 @@ public class GetPostActivity extends AppCompatActivity {
         postDate.setText(postDateData);
         postMoreInfo.setText(postMoreInfoData);
         Log.e("dataCheck",String.valueOf(postTitleData));
+
+        Button chatButton = findViewById(R.id.postChatBtn);
+        chatButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( GetPostActivity.this, MessageActivity.class );
+                intent.putExtra("posterId", posterId); // 게시물 작성자 id
+                intent.putExtra("postId", postId); // 게시물 id
+                startActivity( intent );
+            }
+        });
 
         img=findViewById(R.id.postImg);
         uri= Uri.parse(postImgUriData);

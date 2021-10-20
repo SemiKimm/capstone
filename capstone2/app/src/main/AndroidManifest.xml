@@ -4,6 +4,8 @@
     package="com.example.capstone2">
     <!--인터넷 권한 선언-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--    파일 업로드할 때 외부저장소에 대한 퍼미션 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="false"
@@ -49,6 +51,13 @@
         <activity android:name=".ReportPostActivity"/>
         <activity android:name=".ReportPostDetailActivity"/>
         <activity android:name=".EditProfile"/>
+
+        <activity android:name=".BadgeActivity"/>
+        <activity
+            android:name=".PopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".ChatListActivity"/>
+        <activity android:name=".MessageActivity"/>
 
         <activity android:name=".PushGetCheckActivity"/>
 
