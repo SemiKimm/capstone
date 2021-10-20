@@ -42,8 +42,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.SimpleMultiPartRequest;
+//import com.android.volley.error.VolleyError;
+//import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
@@ -275,8 +275,8 @@ public class GetPostingActivity extends AppCompatActivity {
             String GetPostColorData=color.getText().toString();
             String GetPostMoreInfoData=moreInfo.getText().toString();
 
-            String GetPostImgData1=urii.toString();
-            String GetPostImgData = imgPath;
+            String GetPostImgData=urii.toString();
+            //String GetPostImgData = imgPath;
             //String GetPostImgData = image;
 
 
@@ -293,7 +293,7 @@ public class GetPostingActivity extends AppCompatActivity {
                 return;
             }
 
-            /*
+
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -315,7 +315,8 @@ public class GetPostingActivity extends AppCompatActivity {
                 }
             };
 
-             */
+
+            /*
 
             String serverUrl = "http://myapp.dothome.co.kr/GetPosting.php";
 
@@ -358,15 +359,17 @@ public class GetPostingActivity extends AppCompatActivity {
             smpr.addStringParam("GetPostUserIdData",GetPostUserIdData);
 
 
-            /*
+             */
+
+
             //서버로 Volley 이용해서 요청
             GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostIdData, GetPostTitleData,  GetPostPlaceData
                     ,  GetPostDateData,  GetPostMoreInfoData, GetPostColorData, GetPostImgData
                     , GetPostCategoryData,GetPostLocalData, GetPostUserIdData, responseListener);
-            */
+
 
             RequestQueue queue = Volley.newRequestQueue( GetPostingActivity.this );
-            queue.add( smpr );
+            queue.add(getPostingRequest);
         });
     }
 
