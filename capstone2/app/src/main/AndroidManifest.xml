@@ -48,6 +48,7 @@
         <activity android:name=".ReportDetailActivity"/>
         <activity android:name=".ReportPostActivity"/>
         <activity android:name=".ReportPostDetailActivity"/>
+        <activity android:name=".EditProfile"/>
 
         <activity android:name=".PushGetCheckActivity"/>
 

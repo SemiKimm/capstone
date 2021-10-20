@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/user_profile"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+    <Button
+        android:id="@+id/edit_profileImg"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="프로필 이미지 수정" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_profileImg"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="20dp"
+        android:text="이름"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/edit_name"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_profileImg"
+        android:layout_toRightOf="@id/user_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_name"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="8dp"
+        android:text="아이디"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/edit_id"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_name"
+        android:layout_toRightOf="@id/user_id"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/user_pwd"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_id"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="8dp"
+        android:text="비밀번호"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/edit_pwd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@id/edit_id"
+        android:layout_toRightOf="@id/user_pwd"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:id="@+id/edit_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="완료" />
+
+    <Button
+        android:id="@+id/withdrawal"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550dp"
+        android:text="회원탈퇴" />
+
+    <EditText
+        android:id="@+id/imglocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textView"
+        android:layout_marginTop="500dp"/>
+
+</RelativeLayout>

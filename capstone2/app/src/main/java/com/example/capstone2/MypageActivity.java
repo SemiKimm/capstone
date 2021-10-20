@@ -125,20 +125,20 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-//        // 프로필 편집 버튼 클릭 시 수행
-//        edit_profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // editprofile activity로 값 넘겨주기
-//                Intent intent = new Intent(MypageActivity.this, EditProfile.class);
-//                intent.putExtra("login_id", sharedPreferences.getString("inputId",""));
-//                intent.putExtra("user_name", user_name);
-//                intent.putExtra("login_pwd", login_pwd);
-//                intent.putExtra("profile_img", profile_img);
-//
-//                startActivity(intent);
-//            }
-//        });
+        // 프로필 편집 버튼 클릭 시 수행
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // editprofile activity로 값 넘겨주기
+                Intent intent = new Intent(MypageActivity.this, EditProfile.class);
+                intent.putExtra("login_id", sharedPreferences.getString("inputId",""));
+                intent.putExtra("user_name", user_name);
+                intent.putExtra("login_pwd", login_pwd);
+                intent.putExtra("profile_img", profile_img);
+
+                startActivity(intent);
+            }
+        });
 
         // 본인이 작성한 글 목록 불러오기
         Log.e("errorcheck","오류확인");
