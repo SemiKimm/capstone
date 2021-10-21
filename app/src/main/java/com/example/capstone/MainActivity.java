@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_mypg; //마이페이지 임시 버튼
     Button btn_posting;
     Button btn_getpostlist;
+    Button btn_chatList;
 
     SharedPreferences sharedPreferences;
 
@@ -109,6 +110,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, GetPostListActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        btn_chatList = findViewById(R.id.chatList);
+        btn_chatList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, ChatListActivity.class);
                 startActivity(intent);
 
             }

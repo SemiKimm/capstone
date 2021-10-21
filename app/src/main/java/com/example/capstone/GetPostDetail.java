@@ -84,7 +84,7 @@ public class GetPostDetail extends AppCompatActivity {
         String postColorData=intent.getExtras().getString("color");
         String postDateData=intent.getExtras().getString("date");
         String postMoreInfoData=intent.getExtras().getString("moreInfo");
-        //String postImgUriData=intent.getExtras().getString("imgUri");
+        String postImgUriData=intent.getExtras().getString("imgUri");
 
 
 
@@ -98,19 +98,14 @@ public class GetPostDetail extends AppCompatActivity {
 
         img=findViewById(R.id.postImg);
 
-        GetData task = new GetData();
-        task.execute("http://myapp.dothome.co.kr/GetPostGetJson.php");
 
 
 
-
-
-        /*
         Glide.with(getApplicationContext())
                 .load(postImgUriData)
                 .into(img);
 
-         */
+
 
 
         tv_posterId.setText(posterId); // 작성자 id
@@ -221,124 +216,7 @@ public class GetPostDetail extends AppCompatActivity {
 
      */
 
-    private class GetData extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-        String errorString = null;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(GetPostDetail.this,
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            progressDialog.dismiss();
-            //mTextViewResult.setText(result);
-            Log.d(TAG, "response  - " + result);
-
-            if (result == null){
-                //mTextViewResult.setText(errorString);
-            }
-            else {
-                mJsonString = result;
-                showResult();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String serverURL = params[0];
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.connect();
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "response code - " + responseStatusCode);
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-                bufferedReader.close();
-                return sb.toString().trim();
-            } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
-                errorString = e.toString();
-                return null;
-            }
-
-        }
-    }
-
-    private void showResult(){
-        try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-
-            for(int i=0;i<jsonArray.length();i++){
-                JSONObject item = jsonArray.getJSONObject(i);
-
-                String GetPostImgData = item.getString(TAG_GetPostImg);
-                Log.e("detail", GetPostImgData);
-
-                Bitmap bitmap = StringToBitmap(GetPostImgData);
-
-
-
-                img.setImageBitmap(bitmap);
-
-                //img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                //img.setVisibility(View.VISIBLE);
-
-/*
-                Glide.with(getApplicationContext())
-                        .load(bitmap)
-                        .error(R.drawable.badge)
-                        .into(img);
-
- */
-
-
-
-
-
-
-                //Log.e("list_bitmap", GetPostImgData);
-
-
-
-
-
-            }
-
-
-
-
-
-
-
-        } catch (JSONException e) {
-            Log.d(TAG, "showResult : ", e);
-        }
-    }
 
 
 

@@ -18,6 +18,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -261,12 +262,13 @@ public class GetPostListActivity extends AppCompatActivity {
                     if(view.getId() == R.id.get_imgView_list) {
                         ImageView imageView = (ImageView) view;
 
-                        /*
+
                         drawable = data.toString();
                         Glide.with(GetPostListActivity.this).load(drawable)
+                                //.override(Target.SIZE_ORIGINAL)
                                 .into(imageView);
 
-                         */
+
 
                     /*
                     Drawable drawble = (Drawable) data;

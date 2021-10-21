@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import androidx.loader.content.CursorLoader;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +45,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 //import com.android.volley.error.VolleyError;
-//import com.android.volley.request.SimpleMultiPartRequest;
+//import com.android.volley.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
@@ -51,8 +53,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.BitSet;
 import java.util.Calendar;
@@ -71,6 +78,15 @@ public class GetPostingActivity extends AppCompatActivity {
     private Uri urii;
     private String uriii;
     private String imgPath;
+    private String imgFileName;
+
+    final String uploadFilePath = "storage/emulated/0/Download/";//경로를 모르겠으면, 갤러리 어플리케이션 가서 메뉴->상세 정보
+    final String uploadFileName = "download.jpeg"; //전송하고자하는 파일 이름
+
+    String upLoadServerUri;
+    int serverResponseCode = 0;
+    ProgressDialog dialog = null;
+
 
     private Bitmap bitmap;
     private String image;
@@ -265,6 +281,10 @@ public class GetPostingActivity extends AppCompatActivity {
         local = findViewById(R.id.getPostingLocalData);
         GetPostId = Integer.toString(getRand()); // 게시글id
 
+        upLoadServerUri = "http://myapp.dothome.co.kr/UploadToServer.php";//서버컴퓨터의 ip주소
+
+
+
 
         Button inputButton=findViewById(R.id.inputBtn);
 
@@ -274,16 +294,34 @@ public class GetPostingActivity extends AppCompatActivity {
             String GetPostDateData=date.getText().toString();
             String GetPostColorData=color.getText().toString();
             String GetPostMoreInfoData=moreInfo.getText().toString();
-
-            String GetPostImgData=urii.toString();
-            //String GetPostImgData = imgPath;
-            //String GetPostImgData = image;
-
-
             String GetPostCategoryData=category.getText().toString();
             String GetPostLocalData=local.getText().toString();
             String GetPostUserIdData= login_id; // 로그인 id 데이터
             String GetPostIdData = GetPostId; // 게시물 id
+
+            dialog = ProgressDialog.show(GetPostingActivity.this, "", "Uploading file...", true);
+            new Thread(new Runnable() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            //messageText.setText("uploading started.....");
+                        }
+                    });
+
+                    //uploadFile(uploadFilePath + "" + uploadFileName);
+                    uploadFile(imgPath);
+
+
+                }
+            }).start();
+
+
+            //String GetPostImgData=urii.toString();
+            String GetPostImgData = imgPath;
+            //String GetPostImgData = image;
+
+
+
             Log.e("Test", String.valueOf(urii));
             //한 칸이라도 입력 안했을 경우
             if (GetPostTitleData.equals("") || GetPostPlaceData.equals("") || GetPostImgData.equals("")) {
@@ -292,6 +330,8 @@ public class GetPostingActivity extends AppCompatActivity {
                 inputErrorDialog.show();
                 return;
             }
+
+            GetPostImgData = "http://myapp.dothome.co.kr/uploads/" + imgFileName;
 
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -316,8 +356,9 @@ public class GetPostingActivity extends AppCompatActivity {
             };
 
 
-            /*
 
+
+            /*
             String serverUrl = "http://myapp.dothome.co.kr/GetPosting.php";
 
             //파일 전송 요청 객체 생성[결과를 String으로 받음]
@@ -359,7 +400,7 @@ public class GetPostingActivity extends AppCompatActivity {
             smpr.addStringParam("GetPostUserIdData",GetPostUserIdData);
 
 
-             */
+*/
 
 
             //서버로 Volley 이용해서 요청
@@ -368,9 +409,155 @@ public class GetPostingActivity extends AppCompatActivity {
                     , GetPostCategoryData,GetPostLocalData, GetPostUserIdData, responseListener);
 
 
+
             RequestQueue queue = Volley.newRequestQueue( GetPostingActivity.this );
             queue.add(getPostingRequest);
         });
+    }
+
+    public int uploadFile(String sourceFileUri) {
+
+        String fileName = sourceFileUri;
+
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024 * 1024;
+        File sourceFile = new File(sourceFileUri);
+
+        if (!sourceFile.isFile()) {
+
+            dialog.dismiss();
+
+            //Log.e("uploadFile", "Source File not exist :"
+                    //+uploadFilePath + "" + uploadFileName);
+
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    //messageText.setText("Source File not exist :"
+                            //+ uploadFilePath + "" + uploadFileName);
+                }
+            });
+
+            return 0;
+
+        } else {
+            try {
+
+                // open a URL connection to the Servlet
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                URL url = new URL(upLoadServerUri);
+
+                // Open a HTTP  connection to  the URL
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                //conn.setRequestProperty("uploaded_file", fileName);
+                conn.setRequestProperty("uploaded_file", imgPath);
+
+                dos = new DataOutputStream(conn.getOutputStream());
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                //dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                        //+ fileName + "\"" + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                        + imgPath + "\"" + lineEnd);
+
+                dos.writeBytes(lineEnd);
+
+                // create a buffer of  maximum size
+                bytesAvailable = fileInputStream.available();
+
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                buffer = new byte[bufferSize];
+
+                // read file and write it into form...
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+                while (bytesRead > 0) {
+
+                    dos.write(buffer, 0, bufferSize);
+                    bytesAvailable = fileInputStream.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+                }
+
+                // send multipart form data necesssary after file data...
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+                // Responses from the server (code and message)
+                serverResponseCode = conn.getResponseCode();
+                String serverResponseMessage = conn.getResponseMessage();
+
+                Log.i("uploadFile", "HTTP Response is : "
+                        + serverResponseMessage + ": " + serverResponseCode);
+
+                if (serverResponseCode == 200) {
+
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+
+                            //String msg = "File Upload Completed.\n\n See uploaded file here : \n\n"
+                                  //  + uploadFileName;
+
+                            //messageText.setText(msg);
+                            //Toast.makeText(MainActivity.this, "File Upload Complete.",
+                                    //Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                //close the streams //
+                fileInputStream.close();
+                dos.flush();
+                dos.close();
+
+            } catch (MalformedURLException ex) {
+
+                dialog.dismiss();
+                ex.printStackTrace();
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //messageText.setText("MalformedURLException Exception : check script url.");
+                       // Toast.makeText(MainActivity.this, "MalformedURLException",
+                                //Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
+            } catch (Exception e) {
+
+                dialog.dismiss();
+                e.printStackTrace();
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //messageText.setText("Got Exception : see logcat ");
+                        //Toast.makeText(MainActivity.this, "Got Exception : see logcat ",
+                                //Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //Log.e("Upload file to server Exception", "Exception : "
+                        //+ e.getMessage(), e);
+            }
+            dialog.dismiss();
+            return serverResponseCode;
+
+        } // End else block
     }
 
     @Override
@@ -402,8 +589,10 @@ public class GetPostingActivity extends AppCompatActivity {
                     urii=uri;
 
                     imgPath = getPathFromUri(uri);
+                    imgFileName = getFileName(uri);
 
-                    Log.e("realPath", imgPath);
+                    //Log.e("realPath", imgPath);
+                    Log.e("filename", imgFileName);
 
 
 
@@ -441,6 +630,26 @@ public class GetPostingActivity extends AppCompatActivity {
         cursor.close();
 
         return path;
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        return result;
     }
 
 
