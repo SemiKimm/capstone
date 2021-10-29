@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ReportDetailActivity">
 
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
     <TextView
         android:id="@+id/reason_title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:text="게시물"/>
+        android:layout_marginLeft="10dp"
+        android:text="게시물"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/postTitle"
@@ -20,8 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/reason_title1"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:text="text"/>
+        android:text="text"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
 
     <TextView
         android:id="@+id/reason_title"
@@ -29,18 +39,36 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/postTitle"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:text="의 신고 사유를 자세하게 알려주세요."/>
+        android:text="의 신고 사유를 자세하게 알려주세요."
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout1"
+        android:padding="5dp">
 
     <TextView
         android:id="@+id/reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_below="@id/reason_title"
-        android:text="text"/>
+        android:text="text"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout2"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/ed_moreInfo"
         android:layout_width="375dp"
@@ -48,7 +76,12 @@
         android:layout_below="@id/reason"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:gravity="top" />
+        android:padding="10dp"
+        android:gravity="top"
+        android:hint="자세한 신고 내용을 입력해주세요."
+        android:textColorHint="#696969"
+        android:textSize="15dp"
+        android:background="@drawable/border"/>
 
     <Button
         android:id="@+id/sendReport"
@@ -56,6 +89,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ed_moreInfo"
         android:layout_marginLeft="20dp"
-        android:text="신고 완료"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_round"
+        android:backgroundTint="@color/black"
+        android:text="신고 완료"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="#FF000000"/>
+    </LinearLayout>
 
 </RelativeLayout>

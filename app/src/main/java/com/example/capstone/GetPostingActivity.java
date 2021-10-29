@@ -358,50 +358,6 @@ public class GetPostingActivity extends AppCompatActivity {
 
 
 
-            /*
-            String serverUrl = "http://myapp.dothome.co.kr/GetPosting.php";
-
-            //파일 전송 요청 객체 생성[결과를 String으로 받음]
-            SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //new AlertDialog.Builder(GetPostingActivity.this).setMessage("응답:"+response).create().show();
-                    try {
-                        JSONObject JsonObject = new JSONObject(response);
-                        boolean success=JsonObject.getBoolean("success");
-                        if(success){
-                            Toast.makeText(getApplicationContext(),"게시글 등록 성공",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(GetPostingActivity.this,GetPostListActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(getApplicationContext(),"게시글 등록 실패",Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(GetPostingActivity.this, "통신오류", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            smpr.addStringParam("GetPostIdData", GetPostIdData);
-            smpr.addStringParam("GetPostTitleData", GetPostTitleData);
-            smpr.addStringParam("GetPostPlaceData", GetPostPlaceData);
-            smpr.addStringParam("GetPostDateData", GetPostDateData);
-            smpr.addStringParam("GetPostMoreInfoData", GetPostMoreInfoData);
-            smpr.addStringParam("GetPostColorData",GetPostColorData);
-            smpr.addFile("GetPostImgData", imgPath);
-            smpr.addStringParam("GetPostCategoryData",GetPostCategoryData);
-            smpr.addStringParam("GetPostLocalData",GetPostLocalData);
-            smpr.addStringParam("GetPostUserIdData",GetPostUserIdData);
-
-
-*/
-
 
             //서버로 Volley 이용해서 요청
             GetPostingRequest getPostingRequest = new GetPostingRequest(  GetPostIdData, GetPostTitleData,  GetPostPlaceData
@@ -638,7 +594,7 @@ public class GetPostingActivity extends AppCompatActivity {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)); // display_name : string 형식ㅇ의 파일 이름. = file.getName()
                 }
             } finally {
                 if (cursor != null) {

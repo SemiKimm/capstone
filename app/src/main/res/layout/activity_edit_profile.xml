@@ -17,11 +17,14 @@
     <Button
         android:id="@+id/edit_profileImg"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/user_profile"
+        android:background="@drawable/button_round"
+        app:backgroundTint="#FF000000"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="프로필 이미지 수정" />
+        android:text="프로필 이미지 수정"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/user_name"
@@ -29,9 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_profileImg"
         android:layout_marginLeft="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="이름"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/edit_name"
@@ -39,9 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_profileImg"
         android:layout_toRightOf="@id/user_name"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="18dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/user_id"
@@ -51,7 +56,8 @@
         android:layout_marginLeft="130dp"
         android:layout_marginTop="8dp"
         android:text="아이디"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/edit_id"
@@ -59,9 +65,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_name"
         android:layout_toRightOf="@id/user_id"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/user_pwd"
@@ -71,7 +78,8 @@
         android:layout_marginLeft="130dp"
         android:layout_marginTop="8dp"
         android:text="비밀번호"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/edit_pwd"
@@ -81,30 +89,32 @@
         android:inputType="textPassword"
         android:layout_below="@id/edit_id"
         android:layout_toRightOf="@id/user_pwd"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/edit_confirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/button_round"
+        app:backgroundTint="#FF000000"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:text="완료" />
+        android:layout_marginTop="10dp"
+        android:text="완료"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/withdrawal"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/button_round"
+        app:backgroundTint="#FF000000"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="550dp"
-        android:text="회원탈퇴" />
+        android:text="회원탈퇴"
+        android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/imglocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="textView"
-        android:layout_marginTop="500dp"/>
 
 
 

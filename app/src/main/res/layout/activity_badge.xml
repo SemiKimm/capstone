@@ -1,69 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/button_click"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="badgeclick">
 
-    <ImageView
-        android:id="@+id/badge1"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:onClick="badgeclick"
-        app:layout_constraintEnd_toStartOf="@+id/badge2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gugu" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/badge2"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:onClick="badgeclick"
-        app:layout_constraintEnd_toStartOf="@+id/badge3"
-        app:layout_constraintStart_toEndOf="@+id/badge1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/haha" />
-
-    <Button
-        android:id="@+id/buttonClick"
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginLeft="158dp"
-        android:layout_marginTop="201dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginRight="159dp"
-        android:onClick="click"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="습득물 배지"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/badge3"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:onClick="badgeclick"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/badge2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hoho" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@id/layout1">
+
+        <ImageView
+            android:id="@+id/badge1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/gugu"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/badge1_1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/badge2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/haha"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/badge2_2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"/>
+
+
+        <ImageView
+            android:id="@+id/badge3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/hoho"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/badge2" />
+
+        <ImageView
+            android:id="@+id/badge3_3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/badge2" />
+
+        <ImageView
+            android:id="@+id/badge4"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/gugu"
+            android:layout_below="@id/badge2"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="90dp"/>
+        <ImageView
+            android:id="@+id/badge4_4"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_below="@id/badge2"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="90dp"/>
+
+        <ImageView
+            android:id="@+id/badge5"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/gugu"
+            android:layout_below="@id/badge2"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"/>
+        <ImageView
+            android:id="@+id/badge5_5"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_below="@id/badge2"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/gray"
+        android:layout_below="@id/layout2"/>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_below="@id/layout2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분실물 배지"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/layout4"
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:layout_below="@id/layout3">
+
+        <ImageView
+            android:id="@+id/badge6"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/gugu"
+            android:layout_marginTop="40dp"/>
+        <ImageView
+            android:id="@+id/badge6_6"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/badge7"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/haha"
+            android:layout_marginTop="40dp"/>
+        <ImageView
+            android:id="@+id/badge7_7"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/badge8"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/hoho"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/badge7" />
+        <ImageView
+            android:id="@+id/badge8_8"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/badge7" />
+
+        <ImageView
+            android:id="@+id/badge9"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/gugu"
+            android:layout_below="@id/badge7"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="90dp"/>
+        <ImageView
+            android:id="@+id/badge9_9"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_below="@id/badge7"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="90dp"/>
+
+        <ImageView
+            android:id="@+id/badge10"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/gugu"
+            android:layout_below="@id/badge7"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"/>
+        <ImageView
+            android:id="@+id/badge10_10"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/question"
+            android:layout_below="@id/badge7"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"/>
+    </RelativeLayout>
+    </RelativeLayout>
+    </ScrollView>

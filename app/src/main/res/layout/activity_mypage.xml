@@ -7,101 +7,124 @@
     tools:context=".MypageActivity">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <RelativeLayout
+            android:id="@+id/info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:id="@+id/info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
 
-                    <ImageView
-                        android:id="@+id/user_profile"
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="120dp" />
+            <ImageView
+                android:id="@+id/user_profile"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp" />
 
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:layout_toRightOf="@id/user_profile"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="120dp" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_toRightOf="@id/user_profile"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/black"/>
 
-                    <TextView
-                        android:id="@+id/welcome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="님, 환영합니다!"
-                        android:layout_toRightOf="@id/tv_name"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="120dp" />
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="님, 환영합니다!"
+                android:layout_toRightOf="@id/tv_name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/black"/>
+            <!--
+            <TextView
+                android:id="@+id/text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_toRightOf="@id/user_profile"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="아이디"
+                android:textColor="@color/black"/>
 
-                    <TextView
-                        android:id="@+id/text_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_name"
-                        android:layout_toRightOf="@id/user_profile"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:text="아이디"/>
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_below="@id/welcome"
+                android:layout_toRightOf="@id/text_id"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"/>
+                -->
 
-                    <TextView
-                        android:id="@+id/tv_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:layout_below="@id/welcome"
-                        android:layout_toRightOf="@id/text_id"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp" />
+            <Button
+                android:id="@+id/edit_profile"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_round"
+                android:text="프로필 편집"
+                android:layout_toRightOf="@id/user_profile"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@id/welcome"
+                android:layout_marginTop="90dp"
+                android:textStyle="bold"
+                app:backgroundTint="#FF000000"/>
 
-                    <Button
-                        android:id="@+id/edit_profile"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:text="프로필 편집"
-                        android:layout_toRightOf="@id/user_profile"
-                        android:layout_marginLeft="30dp"
-                        android:layout_below="@id/welcome"
-                        android:layout_marginTop="65dp" />
+<!--
+            <Button
+                android:id="@+id/badge_list"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/user_profile"
+                android:background="@drawable/button_round"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="배지 보기"
+                android:textStyle="bold"
+                app:backgroundTint="#FF000000"/>
+                -->
+<!--
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/button_round"
+                android:text="로그아웃"
+                android:textStyle="bold"
+                app:backgroundTint="#FF000000"/>
+                -->
 
-
-                    <Button
-                        android:id="@+id/badge_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/user_profile"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="30dp"
-                        android:text="배지 보기"/>
-
-                    <Button
-                        android:id="@+id/logoutButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="로그아웃"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/info">
-
-                        <ListView
-                            android:id="@+id/my_post_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                </RelativeLayout>
         </RelativeLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/gray"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/info"/>
+
+        <!-- relative height 조정하면 리스트뷰 늘어나고 전체 스크롤 가능 -->
+        <RelativeLayout
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/view">
+            <ListView
+                android:id="@+id/menu_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>
 

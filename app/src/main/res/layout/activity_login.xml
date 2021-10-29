@@ -9,25 +9,29 @@
     <EditText
         android:id="@+id/id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:ems="10"
         android:hint="ID"
         android:textColorHint="#696969"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:background="@drawable/border"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/id"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="PASSWORD"
         android:textColorHint="#696969"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:background="@drawable/border"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -36,7 +40,12 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/password"
         android:layout_marginTop="30dp"
-        android:text="로그인"/>
+        android:background="@drawable/button_round"
+        android:backgroundTint="@color/black"
+        android:text="로그인"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="#FF000000" />
 
     <Button
         android:id="@+id/registerButton"
@@ -45,7 +54,12 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/loginButton"
         android:layout_marginTop="10dp"
-        android:text="회원가입"/>
+        android:background="@drawable/button_round"
+        android:backgroundTint="@color/black"
+        android:text="회원가입"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="#FF000000" />
 
 
 

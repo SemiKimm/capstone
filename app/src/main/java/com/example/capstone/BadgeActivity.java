@@ -13,7 +13,8 @@ import androidx.annotation.Nullable;
 
 public class BadgeActivity extends Activity {
 
-    ImageView badge1, badge2, badge3;
+    ImageView badge1, badge2, badge3, badge4, badge5, badge6, badge7, badge8, badge9, badge10;
+    ImageView badge1_1, badge2_2, badge3_3, badge4_4, badge5_5, badge6_6, badge7_7, badge8_8, badge9_9, badge10_10;
     //Button buttonClick;
     private int count=0;
     //private int ipostCount=0;
@@ -30,13 +31,34 @@ public class BadgeActivity extends Activity {
         int ipostCount = intent.getIntExtra("postcount",0);
 
         badge1=findViewById(R.id.badge1);
-        badge1.setImageResource(R.drawable.gugu);
+        //badge1.setImageResource(R.drawable.gugu);
 
         badge2=findViewById(R.id.badge2);
-        badge2.setImageResource(R.drawable.haha);
+        //badge2.setImageResource(R.drawable.haha);
 
         badge3=findViewById(R.id.badge3);
-        badge3.setImageResource(R.drawable.hoho);
+        //badge3.setImageResource(R.drawable.hoho);
+
+        badge4=findViewById(R.id.badge4);
+        badge5=findViewById(R.id.badge5);
+        badge6=findViewById(R.id.badge6);
+        badge7=findViewById(R.id.badge7);
+        badge8=findViewById(R.id.badge8);
+        badge9=findViewById(R.id.badge9);
+        badge10=findViewById(R.id.badge10);
+
+        badge1_1 = findViewById(R.id.badge1_1);
+        badge2_2 = findViewById(R.id.badge2_2);
+        badge3_3 = findViewById(R.id.badge3_3);
+        badge4_4 = findViewById(R.id.badge4_4);
+        badge5_5 = findViewById(R.id.badge5_5);
+        badge6_6 = findViewById(R.id.badge6_6);
+        badge7_7 = findViewById(R.id.badge7_7);
+        badge8_8 = findViewById(R.id.badge8_8);
+        badge9_9 = findViewById(R.id.badge9_9);
+        badge10_10 = findViewById(R.id.badge10_10);
+
+
 
         //----컬러 필터를 흑백으로 변경------
         ColorMatrix matrix = new ColorMatrix();
@@ -46,30 +68,22 @@ public class BadgeActivity extends Activity {
         badge1.setColorFilter(filter);
         badge2.setColorFilter(filter);
         badge3.setColorFilter(filter);
+        badge4.setColorFilter(filter);
+        badge5.setColorFilter(filter);
+        badge6.setColorFilter(filter);
+        badge7.setColorFilter(filter);
+        badge8.setColorFilter(filter);
+        badge9.setColorFilter(filter);
+        badge10.setColorFilter(filter);
 
-        if(ipostCount>=5){
+        if(ipostCount>=3){
             badge1.setColorFilter(null);
+            badge1_1.setVisibility(View.GONE);
         }
 
 
     }
 
-    /*
-    public void click(View v){
-        count++;
-
-        if(count==1){
-            badge1.setColorFilter(null);
-        }
-        else if(count==2){
-            badge2.setColorFilter(null);
-        }
-        else if(count==3){
-            badge3.setColorFilter(null);
-        }
-    }
-
-     */
 
     //------팝업 창을 띄우기 위해서
     public void badgeclick(View v){

@@ -8,16 +8,22 @@
     tools:context=".GetPostListActivity">
 
 <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+
     <TextView
         android:id="@+id/reportedId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="textView"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/text"
@@ -26,9 +32,16 @@
         android:layout_toRightOf="@id/reportedId"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:text="님을 신고하는 이유 선택"
-        android:textSize="20dp" />
+        android:text="님을 신고하는 이유를 알려주세요."
+        android:textSize="15dp"
+        android:textColor="@color/black"/>
 </LinearLayout>
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,14 +50,13 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="46dp">
 
-
             <ListView
                 android:id="@+id/report_reason_list"
                 android:layout_width="match_parent"
                 android:layout_height="525dp"
-                android:layout_margin="5dp"
                 android:layout_weight="6"
-                android:padding="5dp" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
         </LinearLayout>
     
 
