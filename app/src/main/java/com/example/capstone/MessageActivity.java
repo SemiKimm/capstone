@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,11 +46,15 @@ public class MessageActivity extends AppCompatActivity {
     private String login_id;
     private String posterId;
     private String destinatonUid;
-    private Button button;
+    //private Button button;
+    private ImageView button;
     private EditText editText;
 
     private String uid;
     private String chatRoomUid;
+    boolean check;
+    ChatModel chatModel;
+
 
     private RecyclerView recyclerView;
 
@@ -58,13 +65,16 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        setTitle("채팅");
+
         final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         login_id = sharedPreferences.getString("inputId",""); // 로그인 id && 보내는 사람 id
 
         Intent intent = getIntent();
         posterId = intent.getStringExtra("posterId"); // 게시물 작성자 id && 받는 사람 id
 
-        button = (Button) findViewById(R.id.messageActivity_button);
+        //button = (Button) findViewById(R.id.messageActivity_button);
+        button = (ImageView) findViewById(R.id.messageActivity_button);
         editText = (EditText) findViewById(R.id.messageActivity_editText);
 
         checkChatRoom();
@@ -138,14 +148,68 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-
     void checkChatRoom() {
-
         FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/" + login_id).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
-                if (dataSnapshot.getValue() == null) {
-                    ChatModel newRoom = new ChatModel();
+                for(DataSnapshot item : dataSnapshot.getChildren()) {
+                    ChatModel chatModel = item.getValue(ChatModel.class);
+
+                    // dataSnapshot.getValue() == null => chatModel.users.containsKey(login_id) == false
+
+                    if (dataSnapshot.getValue() == null ) { // 내가 포함된 방이 없거나, 나와 상대방 모두가 포함된 방이 없으면
+                        ChatModel newRoom = new ChatModel(); // 새 채팅방 만듦
+                        newRoom.users.put(login_id, true);
+                        newRoom.users.put(posterId, true);
+
+                        newRoom.userss.put("sender", login_id);
+                        newRoom.userss.put("geter", posterId);
+                        FirebaseDatabase.getInstance().getReference().child("chatrooms").push().setValue(newRoom).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                checkChatRoom();
+                            }
+                        });
+                        return;
+                    }
+
+                }
+
+
+/*
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    ChatModel chatModel = item.getValue(ChatModel.class);
+                    boolean check = chatModel.users.containsKey(posterId);
+                    if(check){Log.e("boolean check","check");}
+                    if (chatModel.users.containsKey(posterId) && chatModel.users.size() == 2 )  { // 받는 사람이 포함된 방이 있으면
+                        chatRoomUid = item.getKey(); // chatRoomUid 반환 (나, 상대방)
+                        button.setEnabled(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
+                        recyclerView.setAdapter(new RecyclerViewAdapter());
+                        Log.e("chatTest", chatModel.users.toString());
+                        //break;
+
+                    }
+                }
+
+ */
+
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    ChatModel chatModel = item.getValue(ChatModel.class);
+                    check = chatModel.users.containsKey(posterId);
+                    //if(check){Log.e("boolean check","check");}
+                    if (check)  { // 받는 사람이 포함된 방이 있으면
+                        chatRoomUid = item.getKey(); // chatRoomUid 반환 (나, 상대방)
+                        button.setEnabled(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
+                        recyclerView.setAdapter(new RecyclerViewAdapter());
+                        Log.e("chatTest", chatModel.users.toString());
+                        break;
+                    }
+                }
+
+                if(check == false) { // 받는 사람이 포함된 방이 없으면
+                    ChatModel newRoom = new ChatModel(); // 새 채팅방 만듦
                     newRoom.users.put(login_id, true);
                     newRoom.users.put(posterId, true);
 
@@ -160,16 +224,12 @@ public class MessageActivity extends AppCompatActivity {
                     return;
                 }
 
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    ChatModel chatModel = item.getValue(ChatModel.class);
-                    if (chatModel.users.containsKey(posterId) && chatModel.users.size() == 2) {
-                        chatRoomUid = item.getKey();
-                        button.setEnabled(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
-                        recyclerView.setAdapter(new RecyclerViewAdapter());
-                    }
-                }
+
+
+
             }
+
+
 
             @Override
             public void onCancelled (DatabaseError databaseError){
@@ -182,15 +242,15 @@ public class MessageActivity extends AppCompatActivity {
 
 
         List<ChatModel.Comment> comments;
-        UserModel userModel;
+        // userModel;
         public RecyclerViewAdapter() {
             comments = new ArrayList<>();
 
             FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").addValueEventListener(new ValueEventListener() {
-            //FirebaseDatabase.getInstance().getReference().child("users").child(posterId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
+                //FirebaseDatabase.getInstance().getReference().child("users").child(posterId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    userModel = dataSnapshot.getValue(UserModel.class);
+                    //userModel = dataSnapshot.getValue(UserModel.class);
                     //getMessageList();
 
                     comments.clear();
@@ -260,19 +320,28 @@ public class MessageActivity extends AppCompatActivity {
             if(comments.get(position).uid.equals(login_id)){ // 내가 보낸 메시지
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_name.setText(comments.get(position).uid);
-                messageViewHolder.textView_message.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                messageViewHolder.textView_name.setVisibility(View.GONE);
                 messageViewHolder.textView_name.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                messageViewHolder.textView_message.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                messageViewHolder.textView_message.setBackgroundResource(R.drawable.right_msg); // 메시지 배경 지정
+                messageViewHolder.textView_message.setTextSize(20);
+
 
                 messageViewHolder.msgLinear.setGravity(Gravity.RIGHT);
+
             } else { // 상대방이 보낸 메시지
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_name.setText(comments.get(position).uid);
+                messageViewHolder.textView_name.setVisibility(View.VISIBLE);
                 //messageViewHolder.textView_name.setText(userModel.userName);
                 messageViewHolder.textView_message.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                messageViewHolder.textView_message.setBackgroundResource(R.drawable.left_msg);
+                messageViewHolder.textView_message.setTextSize(20);
 
                 messageViewHolder.msgLinear.setGravity(Gravity.LEFT);
 
             }
+
             long unixTime = (long) comments.get(position).timestamp;
             Date date = new Date(unixTime);
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));

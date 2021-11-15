@@ -78,7 +78,8 @@
                 android:layout_below="@id/welcome"
                 android:layout_marginTop="90dp"
                 android:textStyle="bold"
-                app:backgroundTint="#FF000000"/>
+                app:backgroundTint="#FF000000"
+                android:textColor="@color/white"/>
 
 <!--
             <Button

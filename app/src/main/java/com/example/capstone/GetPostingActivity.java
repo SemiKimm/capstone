@@ -547,7 +547,7 @@ public class GetPostingActivity extends AppCompatActivity {
                     imgPath = getPathFromUri(uri);
                     imgFileName = getFileName(uri);
 
-                    //Log.e("realPath", imgPath);
+                    Log.e("realPath", imgPath);
                     Log.e("filename", imgFileName);
 
 

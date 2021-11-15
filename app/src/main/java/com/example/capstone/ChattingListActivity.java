@@ -45,6 +45,8 @@ public class ChattingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting_list);
 
+        setTitle("채팅 목록");
+
         final SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         login_id = sharedPreferences.getString("inputId",""); // 로그인 id && 보내는 사람 id
 
