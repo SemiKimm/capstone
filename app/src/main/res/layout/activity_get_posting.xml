@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GetPostingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:text="습득물"/>
+                <LinearLayout
+                    android:id="@+id/titleLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/titleView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      게시글 제목 :    "
+                        />
+                    <EditText
+                        android:id="@+id/GetPostingTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:autofillHints="title" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/imgLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:id="@+id/GetImgData"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_below='@+id/titleLayout'
+                        android:contentDescription="image"
+                        />
+                    <Button
+                        android:id="@+id/imgInputBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이미지 선택"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lostPostingCategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/getPostingCategoryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      카테고리 :    "
+                        />
+                    <TextView
+                        android:id="@+id/getPostingCategoryData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="물건 분류 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/getPostingCategorySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/colorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/colorView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      습득물 색상  :    "
+                        />
+                    <TextView
+                        android:id="@+id/GetColorData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="색상을 선택하세요"
+                        />
+                    <Spinner
+                        android:id="@+id/GetColorSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getPostingLocalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/getPostingLocalView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      습득 지역 :    "
+                        />
+                    <TextView
+                        android:id="@+id/getPostingLocalData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="습득 지역 선택"
+                        />
+                    <Spinner
+                        android:id="@+id/getPostingLocalSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/placeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/placeView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      습득 장소 :    "
+                        />
+                    <EditText
+                        android:id="@+id/GetPlaceData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/dateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/dateView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      습득 날짜 :    "
+                        />
+                    <TextView
+                        android:id="@+id/GetDateData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="yy/mm/dd"
+                        />
+                    <Button
+                        android:id="@+id/selectDateBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="날짜 변경" />
+                </LinearLayout>
+                <EditText
+                    android:id="@+id/GetMoreInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="top"
+                    android:inputType="text"
+                    android:layout_below="@+id/img"
+                    android:text="추가 세부사항 작성"
+                    android:autofillHints="more"/>
+                <Button
+                    android:id="@+id/inputBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/LostMoreInfo"
+                    android:text='게시글 등록'>
+                </Button>
+
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/searchBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="search"/>
+            <Button
+                android:id="@+id/postingBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="posting"/>
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="home" />
+            <Button
+                android:id="@+id/chatBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="chat" />
+            <Button
+                android:id="@+id/myPageBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="my"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
